@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性偏好测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .share-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+        .share-bar button {
+            flex: 1;
+            padding: 12px;
+            font-size: 15px;
+        }
+        .btn-save {
+            background: linear-gradient(135deg, #11998e, #38ef7d) !important;
+        }
+        .btn-copy {
+            background: linear-gradient(135deg, #f7971e, #ffd200) !important;
+            color: #333 !important;
+        }
+        .result-card-wrap {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 20px;
+            padding: 28px 24px;
+            color: white;
+            margin-bottom: 14px;
+        }
+        .result-card-wrap .result-title {
+            color: white;
+            font-size: 20px;
+        }
+        .result-card-wrap .result-subtitle {
+            color: rgba(255,255,255,0.5);
+        }
+        .result-card-wrap .card {
+            background: rgba(255,255,255,0.08);
+            box-shadow: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .result-card-wrap .card-title {
+            color: #e0e0ff;
+        }
+        .result-card-wrap .card-body {
+            color: rgba(255,255,255,0.8);
+        }
+        .result-card-wrap .meter-bar {
+            background: rgba(255,255,255,0.15);
+        }
+        .result-card-wrap .meter-value {
+            color: rgba(255,255,255,0.7);
+        }
+        .result-card-wrap .note-box {
+            background: rgba(255,200,0,0.15);
+            color: #ffd700;
+        }
+        .username-display {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #c9a0ff;
+            margin-bottom: 4px;
+        }
+        .bdsm-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .bdsm-tag {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.12);
+            color: #e0c8ff;
+            border: 1px solid rgba(200,150,255,0.3);
+        }
+        .bdsm-tag.high {
+            background: rgba(180,0,255,0.25);
+            color: #e8b4ff;
+            border-color: rgba(180,0,255,0.4);
+        }
+        .input-section {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .date-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .time-inputs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .result-section {
+            display: none;
+            margin-top: 30px;
+        }
+        .result-section.show {
+            display: block;
+        }
+        .result-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .result-subtitle {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+            justify-content: center;
+        }
+        .tag {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .tag-strong { background: #ffe0e0; color: #c0392b; }
+        .tag-medium { background: #fff3cd; color: #856404; }
+        .tag-soft   { background: #d4edda; color: #155724; }
+        .tag-active { background: #cce5ff; color: #004085; }
+        .tag-passive{ background: #e2d9f3; color: #4a235a; }
+        .tag-balance{ background: #e8f4f8; color: #2c6e8a; }
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #222;
+        }
+        .card-body {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        .meter-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .meter-label {
+            font-size: 13px;
+            color: #888;
+            width: 60px;
+            flex-shrink: 0;
+        }
+        .meter-bar {
+            flex: 1;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .meter-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.8s ease;
+        }
+        .meter-value {
+            font-size: 13px;
+            color: #555;
+            width: 40px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .divider {
+            border: none;
+            border-top: 1px solid #f0f0f0;
+            margin: 20px 0;
+        }
+        .note-box {
+            background: #fff8e1;
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-size: 13px;
+            color: #7d6608;
+            margin-top: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>性偏好测试</h1>
+        <p class="subtitle">基于命盘的深度推算，仅供娱乐参考</p>
+
+        <div class="input-section">
+            <div class="form-group">
+                <label>你的名字（显示在结果中）</label>
+                <input type="text" id="username" placeholder="输入昵称或真名" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <label>历法选择</label>
+                <select id="calendarType">
+                    <option value="solar">公历（阳历）</option>
+                    <option value="lunar">农历（阴历）</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>出生日期</label>
+                <div class="date-inputs">
+                    <input type="number" id="year" placeholder="年" min="1900" max="2100">
+                    <input type="number" id="month" placeholder="月" min="1" max="12">
+                    <input type="number" id="day" placeholder="日" min="1" max="31">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>出生时辰</label>
+                <select id="hour">
+                    <option value="0">子时（23:00–01:00）</option>
+                    <option value="2">丑时（01:00–03:00）</option>
+                    <option value="4">寅时（03:00–05:00）</option>
+                    <option value="6">卯时（05:00–07:00）</option>
+                    <option value="8">辰时（07:00–09:00）</option>
+                    <option value="10">巳时（09:00–11:00）</option>
+                    <option value="12">午时（11:00–13:00）</option>
+                    <option value="14">未时（13:00–15:00）</option>
+                    <option value="16">申时（15:00–17:00）</option>
+                    <option value="18">酉时（17:00–19:00）</option>
+                    <option value="20">戌时（19:00–21:00）</option>
+                    <option value="22">亥时（21:00–23:00）</option>
+                    <option value="-1">不知道</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>性别</label>
+                <select id="gender">
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+            </div>
+
+            <button onclick="analyze()">开始分析</button>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // 紫微斗数核心算法
+        const ZiWei = {
+            // 天干
+            tianGan: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+            // 地支
+            diZhi: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'],
+            // 十二宫位
+            gongWei: ['命宫', '兄弟宫', '夫妻宫', '子女宫', '财帛宫', '疾厄宫', '迁移宫', '奴仆宫', '官禄宫', '田宅宫', '福德宫', '父母宫'],
+
+            // 主星
+            mainStars: {
+                '紫微': { type: '帝座', nature: '土' },
+                '天机': { type: '智慧', nature: '木' },
+                '太阳': { type: '光明', nature: '火' },
+                '武曲': { type: '财星', nature: '金' },
+                '天同': { type: '福星', nature: '水' },
+                '廉贞': { type: '囚星', nature: '火' },
+                '天府': { type: '财库', nature: '土' },
+                '太阴': { type: '财星', nature: '水' },
+                '贪狼': { type: '桃花', nature: '水木' },
+                '巨门': { type: '暗星', nature: '水' },
+                '天相': { type: '印星', nature: '水' },
+                '天梁': { type: '荫星', nature: '土' },
+                '七杀': { type: '将星', nature: '金' },
+                '破军': { type: '耗星', nature: '水' }
+            },
+
+            // 四化
+            siHua: {
+                '甲': { lu: '廉贞', quan: '破军', ke: '武曲', ji: '太阳' },
+                '乙': { lu: '天机', quan: '天梁', ke: '紫微', ji: '太阴' },
+                '丙': { lu: '天同', quan: '天机', ke: '文昌', ji: '廉贞' },
+                '丁': { lu: '太阴', quan: '天同', ke: '天机', ji: '巨门' },
+                '戊': { lu: '贪狼', quan: '太阴', ke: '右弼', ji: '天机' },
+                '己': { lu: '武曲', quan: '贪狼', ke: '天梁', ji: '文曲' },
+                '庚': { lu: '太阳', quan: '武曲', ke: '太阴', ji: '天同' },
+                '辛': { lu: '巨门', quan: '太阳', ke: '文曲', ji: '文昌' },
+                '壬': { lu: '天梁', quan: '紫微', ke: '左辅', ji: '武曲' },
+                '癸': { lu: '破军', quan: '巨门', ke: '太阴', ji: '贪狼' }
+            },
+
+            // 农历数据表 1900-2100 (每条24bit: 高4bit=闰月大小, 中4bit=闰月月份, 低16bit=各月大小)
+            lunarInfo: [
+                0x04AE53,0x0A5748,0x5526BD,0x0D2650,0x0D9544,0x46AAB9,0x056A4D,0x09AD42,0x24AEB6,0x04AE4A,
+                0x6AA550,0x0B5544,0x0AD550,0x515B45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,
+                0x0B5540,0x4B6A45,0x0AD550,0x0955B2,0x2497B7,0x04974B,0x66A550,0x0EA544,0x0EA550,0x5B5A45,
+                0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,0x0B5540,0x4B6A45,0x0AD550,0x0955B2,
+                0x2497B7,0x04974B,0x66A550,0x0EA544,0x0EA550,0x5B5A45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,
+                0x6AA550,0x0B5544,0x0AD550,0x515B45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,
+                0x0B5540,0x4B6A45,0x0AD550,0x0955B2,0x2497B7,0x04974B,0x66A550,0x0EA544,0x0EA550,0x5B5A45,
+                0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6AA550,0x0B5544,0x0AD550,0x515B45,0x056A4D,0x0A6B42,
+                0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,0x0B5540,0x4B6A45,0x0AD550,0x0955B2,0x2497B7,0x04974B,
+                0x66A550,0x0EA544,0x0EA550,0x5B5A45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6AA550,0x0B5544,
+                0x0AD550,0x515B45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,0x0B5540,0x4B6A45,
+                0x0AD550,0x0955B2,0x2497B7,0x04974B,0x66A550,0x0EA544,0x0EA550,0x5B5A45,0x056A4D,0x0A6B42,
+                0x25AAB6,0x04AE4A,0x6AA550,0x0B5544,0x0AD550,0x515B45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,
+                0x6B2550,0x0B2544,0x0B5540,0x4B6A45,0x0AD550,0x0955B2,0x2497B7,0x04974B,0x66A550,0x0EA544,
+                0x0EA550,0x5B5A45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6AA550,0x0B5544,0x0AD550,0x515B45,
+                0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,0x0B5540,0x4B6A45,0x0AD550,0x0955B2,
+                0x2497B7,0x04974B,0x66A550,0x0EA544,0x0EA550,0x5B5A45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,
+                0x6AA550,0x0B5544,0x0AD550,0x515B45,0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6B2550,0x0B2544,
+                0x0B5540,0x4B6A45,0x0AD550,0x0955B2,0x2497B7,0x04974B,0x66A550,0x0EA544,0x0EA550,0x5B5A45,
+                0x056A4D,0x0A6B42,0x25AAB6,0x04AE4A,0x6AA550,0x0B5544,0x0AD550,0x515B45,0x056A4D,0x0A6B42
+            ],
+
+            // 公历转农历
+            solarToLunar: function(year, month, day) {
+                // 基准日期：1900年1月31日 = 农历1900年正月初一
+                const baseDate = new Date(1900, 0, 31);
+                const objDate = new Date(year, month - 1, day);
+                let offset = Math.round((objDate - baseDate) / 86400000);
+
+                let lunarYear = 1900;
+                let daysInYear;
+
+                // 找到农历年
+                while (lunarYear < 2100) {
+                    daysInYear = this.lunarYearDays(lunarYear);
+                    if (offset < daysInYear) break;
+                    offset -= daysInYear;
+                    lunarYear++;
+                }
+
+                const leapMonth = this.leapMonth(lunarYear);
+                let isLeap = false;
+                let lunarMonth = 1;
+
+                while (lunarMonth <= 12) {
+                    let daysInMonth;
+                    if (isLeap) {
+                        daysInMonth = this.leapDays(lunarYear);
+                        isLeap = false;
+                        if (offset < daysInMonth) break;
+                        offset -= daysInMonth;
+                        lunarMonth++;
+                        continue;
+                    }
+                    daysInMonth = this.monthDays(lunarYear, lunarMonth);
+                    if (offset < daysInMonth) break;
+                    offset -= daysInMonth;
+                    if (lunarMonth === leapMonth) {
+                        isLeap = true;
+                    } else {
+                        lunarMonth++;
+                    }
+                }
+
+                return { year: lunarYear, month: lunarMonth, day: offset + 1, isLeap };
+            },
+
+            // 农历年总天数
+            lunarYearDays: function(y) {
+                let sum = 348;
+                for (let i = 0x8000; i > 0x8; i >>= 1) {
+                    sum += (this.lunarInfo[y - 1900] & i) ? 1 : 0;
+                }
+                return sum + this.leapDays(y);
+            },
+
+            // 闰月天数
+            leapDays: function(y) {
+                if (this.leapMonth(y)) {
+                    return (this.lunarInfo[y - 1900] & 0x10000) ? 30 : 29;
+                }
+                return 0;
+            },
+
+            // 闰月月份
+            leapMonth: function(y) {
+                return this.lunarInfo[y - 1900] & 0xf;
+            },
+
+            // 某月天数
+            monthDays: function(y, m) {
+                return (this.lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29;
+            },
+
+            // 获取生年天干
+            getYearGan: function(year) {
+                return this.tianGan[(year - 4) % 10];
+            },
+
+            // 获取生年地支
+            getYearZhi: function(year) {
+                return this.diZhi[(year - 4) % 12];
+            },
+
+            // 时辰转地支序号 (0=子, 1=丑, ..., 11=亥)
+            hourToZhi: function(hour) {
+                // 23-1点=子, 1-3=丑, 3-5=寅, ...
+                return Math.floor((hour + 1) / 2) % 12;
+            },
+
+            // 计算命宫地支序号
+            // 规则：寅宫(index=2)起正月，顺数至生月，再从该宫逆数至生时地支
+            getMingGongZhi: function(lunarMonth, hour) {
+                const monthZhi = (lunarMonth + 1) % 12; // 正月在寅(2)，这里用0-based index
+                const shiZhi = this.hourToZhi(hour);
+                // 命宫 = 寅 + (月-1) - 时支，逆数
+                let mingZhi = (2 + lunarMonth - 1 - shiZhi + 12) % 12;
+                return mingZhi;
+            },
+
+            // 根据生日计算紫微星所在地支
+            // 标准算法：以生日数查五行局，再定紫微位置
+            getZiWeiZhi: function(lunarDay, ju) {
+                // ju: 五行局数 (2=水二局, 3=木三局, 4=金四局, 5=土五局, 6=火六局)
+                // 紫微安星表（按五行局和生日）
+                const ziWeiTable = {
+                    2: [0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,11],
+                    3: [0,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4],
+                    4: [0,0,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3],
+                    5: [0,0,0,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2],
+                    6: [0,0,0,0,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1]
+                };
+                return ziWeiTable[ju][lunarDay - 1];
+            },
+
+            // 根据命宫地支和生年干支确定五行局
+            getJu: function(mingZhi, yearGan) {
+                // 纳音五行局：根据命宫地支和年干确定
+                // 简化：用命宫地支序号 mod 5 + 2 来近似
+                const juMap = [2,3,4,5,6,2,3,4,5,6,2,3];
+                return juMap[mingZhi];
+            },
+
+            // 排盘
+            paipan: function(lunarYear, lunarMonth, lunarDay, hour, gender) {
+                const mingZhi = this.getMingGongZhi(lunarMonth, hour);
+                const yearGan = this.getYearGan(lunarYear);
+                const ju = this.getJu(mingZhi, yearGan);
+                const ziWeiZhi = this.getZiWeiZhi(lunarDay, ju);
+
+                // 初始化十二宫，命宫在 mingZhi 地支
+                const chart = {};
+                for (let i = 0; i < 12; i++) {
+                    const zhiIndex = (mingZhi + i) % 12;
+                    chart[this.gongWei[i]] = {
+                        diZhi: this.diZhi[zhiIndex],
+                        zhiIndex: zhiIndex,
+                        stars: [],
+                        sihua: []
+                    };
+                }
+
+                // 安主星
+                this.placeMainStars(chart, ziWeiZhi, mingZhi);
+
+                // 安四化
+                this.placeSiHua(chart, yearGan);
+
+                return chart;
+            },
+
+            // 安主星（标准紫微斗数算法）
+            placeMainStars: function(chart, ziWeiZhi, mingZhi) {
+                // 紫微星系：紫微在 ziWeiZhi，其余按固定间距
+                // 天机在紫微前一宫，太阳前三宫，武曲前四宫，天同前五宫，廉贞前八宫
+                const ziWeiGroup = [
+                    { name: '紫微', offset: 0 },
+                    { name: '天机', offset: -1 },
+                    { name: '太阳', offset: -3 },
+                    { name: '武曲', offset: -4 },
+                    { name: '天同', offset: -5 },
+                    { name: '廉贞', offset: -8 }
+                ];
+
+                // 天府星系：天府与紫微对宫（相差6宫）
+                const tianFuZhi = (ziWeiZhi + 6) % 12;
+                const tianFuGroup = [
+                    { name: '天府', offset: 0 },
+                    { name: '太阴', offset: 1 },
+                    { name: '贪狼', offset: 2 },
+                    { name: '巨门', offset: 3 },
+                    { name: '天相', offset: 4 },
+                    { name: '天梁', offset: 5 },
+                    { name: '七杀', offset: 6 },
+                    { name: '破军', offset: 8 }
+                ];
+
+                const gongNames = Object.keys(chart);
+
+                // 放置紫微星系
+                ziWeiGroup.forEach(({ name, offset }) => {
+                    const zhi = (ziWeiZhi + offset + 12) % 12;
+                    // 找到该地支对应的宫位
+                    const gongIdx = gongNames.findIndex(g => chart[g].zhiIndex === zhi);
+                    if (gongIdx >= 0) chart[gongNames[gongIdx]].stars.push(name);
+                });
+
+                // 放置天府星系
+                tianFuGroup.forEach(({ name, offset }) => {
+                    const zhi = (tianFuZhi + offset) % 12;
+                    const gongIdx = gongNames.findIndex(g => chart[g].zhiIndex === zhi);
+                    if (gongIdx >= 0) chart[gongNames[gongIdx]].stars.push(name);
+                });
+            },
+
+            // 安四化
+            placeSiHua: function(chart, yearGan) {
+                const sihua = this.siHua[yearGan];
+                if (!sihua) return;
+
+                for (let gongName in chart) {
+                    const gong = chart[gongName];
+                    gong.stars.forEach(star => {
+                        if (star === sihua.lu) gong.sihua.push('化禄');
+                        if (star === sihua.quan) gong.sihua.push('化权');
+                        if (star === sihua.ke) gong.sihua.push('化科');
+                        if (star === sihua.ji) gong.sihua.push('化忌');
+                    });
+                }
+            }
+        };
+
+        // 性偏好分析逻辑
+        function analyzePreference(chart, gender, username) {
+            const ziNv = chart['子女宫'];
+            const jiE  = chart['疾厄宫'];
+            const ming = chart['命宫'];
+            const fuDe = chart['福德宫'];
+            const fuQi = chart['夫妻宫'];
+
+            const allStars  = [...ziNv.stars, ...jiE.stars, ...ming.stars, ...fuDe.stars];
+            const allSihua  = [...ziNv.sihua, ...jiE.sihua, ...ming.sihua, ...fuDe.sihua];
+            const fuQiStars = fuQi.stars;
+
+            const hasStar = (gong, ...names) => names.some(n => gong.stars.includes(n));
+            const hasSihua = (gong, ...types) => types.some(t => gong.sihua.includes(t));
+
+            // ── 欲望强度 ──────────────────────────────────────────
+            const taoHua   = allStars.filter(s => ['贪狼','廉贞'].includes(s)).length;
+            const softStar = allStars.filter(s => ['天同','太阴','天梁','天相'].includes(s)).length;
+            const hasLu    = allSihua.includes('化禄');
+            const hasQuan  = allSihua.includes('化权');
+            const hasJi    = allSihua.filter(s => s === '化忌').length;
+
+            let desireLevel, desireBar, desireText;
+            if (taoHua >= 2 || (taoHua >= 1 && hasLu)) {
+                desireLevel = '旺盛'; desireBar = 85;
+                desireText = '你的性欲望属于天生旺盛型，对亲密关系有强烈且持续的主动需求。不需要太多外部刺激就能进入状态，身体对感官信号的反应非常灵敏。你很难长时间压抑这方面的需求，禁欲对你来说是一种真实的消耗。享受亲密关系本身带来的愉悦感，不只是为了情感连接，感官体验本身就是目的之一。伴侣的频率如果跟不上你，容易产生落差感。';
+            } else if (taoHua === 1) {
+                desireLevel = '较强'; desireBar = 65;
+                desireText = '欲望偏强，在合适的氛围和对象面前很容易被点燃。平时可以自我克制，但一旦进入状态就很投入，不喜欢草草了事。对亲密关系有明显的兴趣和期待，会主动创造机会。情绪好的时候欲望会明显上升，情绪低落时则会有所收敛——你的状态和心情对欲望的影响比较直接。';
+            } else if (softStar >= 2) {
+                desireLevel = '偏淡'; desireBar = 30;
+                desireText = '你对性的需求相对淡薄，更看重情感连接和精神契合，纯粹的感官刺激对你的吸引力有限。不是没有欲望，而是门槛比较高——需要足够的信任、足够的情感基础，才能真正投入。长时间没有亲密关系也不会特别难受，精神上的满足感对你来说更重要。伴侣如果只注重肉体层面而忽视情感，你会感到空洞甚至排斥。';
+            } else {
+                desireLevel = '适中'; desireBar = 50;
+                desireText = '欲望处于正常水平，有需求但不强烈，不会主动去追求也不会刻意回避。情绪、氛围、对象的状态对你的欲望影响很大——好的氛围能让你完全投入，不对的感觉则会让你提不起兴趣。你不是那种随时随地都能进入状态的人，需要一定的"预热"过程。整体来说比较平衡，不会因为欲望问题产生太大的困扰。';
+            }
+
+            // ── 主被动倾向 ────────────────────────────────────────
+            const strongStar = allStars.filter(s => ['七杀','破军','武曲','太阳','廉贞'].includes(s)).length;
+            let roleText, roleTag, roleTagClass;
+            if (strongStar >= 2 || hasQuan) {
+                roleTag = '主导型'; roleTagClass = 'tag-active';
+                roleText = '你天生偏向主导，喜欢掌控节奏、决定方向，被动等待会让你感到焦虑甚至失去兴趣。在亲密关系中，你更享受引领对方的感觉——决定时间、地点、方式，这种掌控感本身就是兴奋点的一部分。你不喜欢对方完全不配合或过于被动，但也不需要对方完全顺从，适度的张力和回应才是你最享受的状态。如果对方比你更强势，你可能会感到不适甚至产生抵触。在信任的关系里，你愿意偶尔放下主导权，但那需要对方真正赢得你的信任。';
+            } else if (softStar >= 2 && !hasQuan) {
+                roleTag = '配合型'; roleTagClass = 'tag-passive';
+                roleText = '你偏向配合和回应，享受被引导、被照顾的感觉。对方的主动会让你更放松、更投入，不需要自己去想"下一步做什么"反而让你感到自在。你不喜欢压力感，需要足够的安全感和信任基础才能完全放开。被动不代表没有需求，只是你更习惯用回应来表达，而不是主动发起。如果对方也是被动型，关系容易陷入僵局——你需要一个愿意主动的伴侣来激活你。';
+            } else {
+                roleTag = '灵活型'; roleTagClass = 'tag-balance';
+                roleText = '你的主被动倾向比较灵活，能根据对方和当下的氛围自然切换，这是一种难得的适应能力。既能在对方需要时主动出击，也能在对方强势时享受被引导的感觉。你不会固执地坚持某一种角色，更在意的是整体的流动感和双方的契合度。这种灵活性让你能和不同类型的人都建立良好的亲密关系，但有时候也可能让对方摸不清你真正想要什么——适当表达自己的偏好会让关系更顺畅。';
+            }
+
+            // ── 风格偏好 ──────────────────────────────────────────
+            const styleItems = [];
+            if (hasStar(ziNv, '贪狼') || hasStar(fuDe, '贪狼')) styleItems.push({ icon: '🔥', text: '喜欢新鲜感，容易对重复的模式感到厌倦。你的探索欲很强，同一种方式做三次以上就开始觉得无聊。喜欢尝试新的场景、新的方式、甚至新的对象——不是因为不忠，而是新鲜感本身就是你最大的兴奋剂。伴侣如果能持续给你带来惊喜，你会非常投入；如果关系变得太过例行公事，你的热情会快速消退。' });
+            if (hasStar(ziNv, '廉贞') || hasStar(ming, '廉贞')) styleItems.push({ icon: '⚡', text: '追求激情和强烈的感官体验，平淡对你来说是最大的杀手。你需要那种心跳加速、肾上腺素飙升的感觉，温吞水式的亲密关系很难让你满足。喜欢带有张力和紧迫感的互动，情绪越激烈越能激发你。有时候争吵之后的和好反而比平静时更有感觉——冲突和激情对你来说是一体两面。' });
+            if (hasStar(ziNv, '天同') || hasStar(ming, '天同')) styleItems.push({ icon: '🌊', text: '注重过程和氛围，是典型的慢热型。你需要足够的情感铺垫才能真正进入状态，跳过前戏直奔主题会让你感到不舒服甚至抵触。享受整个过程的流动感，不急于求成。氛围对你极为重要——灯光、音乐、对方的情绪状态，这些细节都会直接影响你的投入程度。你最享受的是那种彼此都完全放松、没有任何压力的亲密时刻。' });
+            if (hasStar(ziNv, '太阴') || hasStar(fuDe, '太阴')) styleItems.push({ icon: '🌙', text: '细腻敏感，对氛围和情调的要求很高。你对触感、温度、气味这些细节极为敏感，轻柔的接触有时比激烈的动作更能触动你。喜欢含蓄内敛的表达方式，不喜欢太过粗糙或直白的互动。私密感对你很重要，你需要感觉到这是只属于你们两个人的空间，才能完全放开。月光、夜晚、安静的环境——这些意象对你有天然的吸引力。' });
+            if (hasStar(ming, '七杀') || hasStar(ziNv, '七杀')) styleItems.push({ icon: '🗡️', text: '征服欲强，喜欢有张力的关系。平等或略带挑战感的互动最能激发你，你享受那种"赢得"对方的过程。对方如果太容易得到，你反而会失去兴趣；适度的阻力和挑战感让你更兴奋。你喜欢在亲密关系中感受到自己的力量和影响力，被对方完全顺从反而让你觉得无聊。有时候你的征服欲会延伸到心理层面——让对方心甘情愿地臣服比肉体上的征服更让你满足。' });
+            if (hasStar(ming, '破军') || hasStar(ziNv, '破军')) styleItems.push({ icon: '💥', text: '勇于突破边界，不拘传统，越是禁忌的事越有吸引力。你对"不应该"和"不可以"有天然的好奇心，规则和限制对你来说更像是挑战而不是约束。喜欢探索常规之外的体验，不介意尝试大多数人不敢尝试的事。这种突破感本身就是你的兴奋点之一——不只是为了体验本身，而是打破边界的那一刻带来的快感。' });
+            if (hasStar(ming, '紫微') || hasStar(fuDe, '紫微')) styleItems.push({ icon: '👑', text: '注重仪式感和尊严，不喜随意。你需要被认真对待才能放开自己，草率或不尊重的方式会让你立刻关闭。你对品质有要求——不只是环境的品质，更是互动本身的品质。你享受被崇拜、被珍视的感觉，对方的用心程度直接影响你的投入程度。有时候你内心深处渴望的是那种"被当成最重要的人"的感觉，这比任何技巧都更能打动你。' });
+            if (hasStar(fuDe, '天梁') || hasStar(ming, '天梁')) styleItems.push({ icon: '🧠', text: '精神层面的连接比肉体更重要，心灵契合是你最大的前提条件。你很难和一个精神上不吸引你的人发生亲密关系，即使对方外表很好看。深度的交流、被真正理解的感觉，是你最重要的前戏。你享受那种"灵魂相遇"的感觉，肉体的结合对你来说是精神连接的延伸，而不是目的本身。如果关系只停留在肉体层面，你会感到空洞和不满足。' });
+            if (hasStar(ziNv, '天机') || hasStar(ming, '天机')) styleItems.push({ icon: '🎯', text: '善于揣摩对方心理，注重技巧和方法。你喜欢有变化和层次感的体验，一成不变的方式很快就会让你失去兴趣。你会主动研究和学习，享受"把事情做好"的成就感。对方的反应和状态是你最重要的参考——你会根据对方的回应实时调整，这让你成为一个很有感知力的伴侣。你的脑子在亲密关系中也不会完全停下来，这既是优势也可能是障碍。' });
+            if (hasStar(ziNv, '武曲') || hasStar(jiE, '武曲')) styleItems.push({ icon: '💪', text: '直接务实，不喜欢绕弯子。你的体力充沛，行动力强，持久力好，不喜欢拖拖拉拉。你更看重实际的感受而不是氛围的营造，有时候会觉得太多的"前戏"是在浪费时间。你的直接有时候会让对方感到突然，但也有人非常欣赏这种不做作的风格。你在亲密关系中的表现往往比你的语言表达更有力——行动是你最自然的表达方式。' });
+            if (hasStar(ming, '天府') || hasStar(ziNv, '天府')) styleItems.push({ icon: '🏛️', text: '稳重保守，注重安全感。你偏好熟悉固定的模式，不轻易尝试新事物，但在建立了足够信任的关系里会逐渐放开。你需要感到绝对安全才能真正投入，任何不确定感都会让你收缩。你的亲密关系往往需要时间来建立，但一旦建立就会非常稳固和深入。你不追求刺激，但你能给伴侣带来一种踏实的、被接纳的感觉。' });
+            if (hasStar(ziNv, '巨门') || hasStar(ming, '巨门')) styleItems.push({ icon: '🗣️', text: '内心深处欲望丰富，但不轻易表露。你需要充分的信任和安全感才能说出自己真正想要什么，在不够熟悉的关系里你会压抑自己的需求。语言对你很重要——对方说的话、用的词，都会直接影响你的状态。你其实有很多想法和幻想，只是很少主动开口，等待对方来发现和引导你。' });
+            if (styleItems.length === 0) styleItems.push({ icon: '☯️', text: '偏好平和稳定的亲密关系，不追求极端体验，注重舒适和安全感。你不需要太多刺激，享受那种自然流动、没有压力的亲密状态。对你来说，最好的亲密关系是让双方都感到放松和被接纳的，而不是充满张力和挑战的。' });
+
+            // ── 伴侣偏好 ──────────────────────────────────────────
+            const partnerItems = [];
+            if (hasStar(fuQi, '贪狼')) partnerItems.push({ trait: '有魅力、会撩人', desc: '你需要一个能持续给你带来新鲜感的伴侣。对方要有自己的魅力和吸引力，会主动制造惊喜，让你永远猜不透下一步。太过平淡或可预测的人很难长期吸引你。' });
+            if (hasStar(fuQi, '廉贞')) partnerItems.push({ trait: '热情主动，感情炽烈', desc: '你需要一个能点燃你的人。对方要有强烈的情感表达，不压抑、不含糊，敢于直接表达欲望和需求。冷淡或被动的伴侣会让你感到无聊甚至沮丧。' });
+            if (hasStar(fuQi, '七杀')) partnerItems.push({ trait: '有个性、有主见', desc: '你不喜欢一味顺从你的人，需要对方有自己的立场和个性。适度的张力和摩擦反而让你更有兴趣，完全顺从的伴侣会让你失去征服的欲望。' });
+            if (hasStar(fuQi, '破军')) partnerItems.push({ trait: '敢于突破，不墨守成规', desc: '你需要一个愿意和你一起探索边界的伴侣，对方要有冒险精神，不会因为"不正常"就退缩。能带你去你自己不敢去的地方，或者愿意跟着你一起突破。' });
+            if (hasStar(fuQi, '紫微')) partnerItems.push({ trait: '有气质、有地位感', desc: '你对伴侣的"档次"有要求，不只是外表，更是气质、谈吐、社会地位带来的那种感觉。你需要感到对方是值得你的，配不上你的人很难让你真正投入。' });
+            if (hasStar(fuQi, '天同')) partnerItems.push({ trait: '温柔随和，让你放松', desc: '你需要一个能让你完全放松的伴侣，不给你压力，不让你觉得需要表演。对方的温柔和包容是你最大的安全感来源，在这样的关系里你才能真正打开自己。' });
+            if (hasStar(fuQi, '太阴')) partnerItems.push({ trait: '细腻体贴，情感深度好', desc: '你需要一个能感受到你细微变化的伴侣，善于观察、善于回应，不需要你说出口就能知道你需要什么。情感深度对你来说比激情更重要，你需要被真正看见。' });
+            if (hasStar(fuQi, '天机')) partnerItems.push({ trait: '聪明有趣，精神共鸣', desc: '你需要一个能和你在精神层面对话的伴侣，聪明、有想法、能让你在床上和床下都感到被刺激。无聊的人即使外表再好看也很难长期吸引你。' });
+            if (hasStar(fuQi, '太阳')) partnerItems.push({ trait: '阳光积极，给予感强', desc: '你需要一个主动付出、让你感到被珍视的伴侣。对方要有能量，能带动你的情绪，让你在关系里感到被滋养而不是被消耗。' });
+            if (hasStar(fuQi, '武曲')) partnerItems.push({ trait: '有能力、靠谱踏实', desc: '你需要一个有实力的伴侣，不只是经济上，更是行动力和执行力上。说到做到，不拖泥带水，这种踏实感让你有安全感，也让你更愿意投入。' });
+            if (hasStar(fuQi, '天府')) partnerItems.push({ trait: '稳重可靠，给你安全感', desc: '你需要一个稳定的伴侣，不会让你感到不确定或焦虑。对方的稳重和可靠是你最重要的需求，在这种安全感的基础上你才能真正放开。' });
+            if (hasStar(fuQi, '天梁')) partnerItems.push({ trait: '有责任感，重视精神契合', desc: '你需要一个把你放在心上、愿意为你承担责任的伴侣。精神层面的契合对你来说是前提，对方要能理解你、尊重你，而不只是被你的外表吸引。' });
+            if (hasStar(fuQi, '巨门')) partnerItems.push({ trait: '善于表达，沟通能力强', desc: '你需要一个能说出口的伴侣，不管是表达欲望、表达感受还是表达需求。沉默寡言的人让你感到不安，你需要语言上的互动来确认关系的存在。' });
+            if (hasStar(fuQi, '天相')) partnerItems.push({ trait: '配合度高，善于迎合', desc: '你需要一个愿意配合你、以你为中心的伴侣。对方的顺从和迎合让你感到被重视，你享受那种"对方为了你而调整自己"的感觉。' });
+            if (partnerItems.length === 0) partnerItems.push({ trait: '整体感觉和相处舒适度', desc: '你对伴侣没有特别强烈的类型偏好，更看重整体的化学反应和相处是否自然。你不会因为对方符合某个标准就投入，而是需要那种说不清楚但感觉对了的感觉。' });
+
+            // ── 四化加成 ──────────────────────────────────────────
+            const bonusItems = [];
+            if (hasSihua(ziNv, '化禄')) bonusItems.push('性生活整体和谐，容易获得满足感，是天生的享乐者。你不需要太多条件就能进入状态，身体对愉悦的接受度很高，很少有"怎么都不对"的情况。这是一种难得的天赋，很多人终其一生都在寻找你天生就有的那种放松感。');
+            if (hasSihua(ziNv, '化权')) bonusItems.push('在亲密关系中掌控欲很强，喜欢主导一切细节——时间、地点、方式、节奏。这种掌控欲不是控制欲，而是你对品质的追求：你知道自己想要什么，也有能力去实现它。对方如果能接受你的主导，关系会非常顺畅；如果对方也是强势型，可能需要协商空间。');
+            if (hasSihua(jiE, '化禄')) bonusItems.push('体质好，精力充沛，身体状态对亲密关系有天然加持。你不容易疲惫，恢复快，状态稳定，这让你在亲密关系中有持续的能量输出。你的身体本身就是你的优势，好好保养，这种天赋会一直陪着你。');
+            if (hasSihua(jiE, '化权')) bonusItems.push('爆发力强，体能旺盛，行动力十足。你在亲密关系中的表现往往超出对方的预期，强度和持续性都很好。这种体能上的优势让你在需要的时候能完全投入，不会因为体力问题而打折扣。');
+            if (hasSihua(fuDe, '化禄')) bonusItems.push('精神层面富足，内心愉悦，享受生活的能力强。你不容易陷入性方面的焦虑或自我怀疑，对自己的欲望和需求有比较健康的态度。这种内心的富足感让你在亲密关系中更自在，也更能给对方带来轻松的感觉。');
+            if (hasSihua(ming, '化权')) bonusItems.push('个性强势，自主意识强，不喜欢被安排。你清楚地知道自己想要什么，也有勇气去表达和争取。在亲密关系中，你不会委屈自己去迎合对方，这种自我意识是健康关系的基础。');
+            if (hasSihua(fuQi, '化禄')) bonusItems.push('夫妻宫化禄，感情生活整体顺遂，容易遇到与你契合的伴侣。你在亲密关系中的运气比较好，不需要太费力就能找到感觉对的人。珍惜这种缘分，不要因为太容易得到而不珍惜。');
+
+            // ── 注意事项 ──────────────────────────────────────────
+            const cautionItems = [];
+            if (hasSihua(ziNv, '化忌')) cautionItems.push('在亲密关系中可能存在某些心理障碍或不顺，这不是你的错，而是需要更多时间和耐心去解开的结。可能是过去的某段经历留下了阴影，也可能是对自己的某些欲望感到羞耻或恐惧。建议在安全的关系里慢慢探索，不要强迫自己，也不要因为"做不到"而自责。');
+            if (hasSihua(jiE, '化忌')) cautionItems.push('身体或情绪状态容易影响亲密关系的表现。你可能会在压力大、睡眠不足或情绪低落时完全提不起兴趣，而在状态好的时候又非常投入——这种落差可能让伴侣感到困惑。学会识别自己的状态，在不对的时候不要勉强，也要学会提前和伴侣沟通。');
+            if (hasSihua(ming, '化忌')) cautionItems.push('整体运势有阻滞感，在亲密关系中容易遇到挫折或不顺。可能是时机不对，可能是遇到的人不合适，也可能是自己内心有某些未解决的课题在阻碍你。不要把每一次不顺都归咎于自己，但也值得认真反思是否有某些模式在重复。必要时寻求专业支持是明智的选择。');
+            if (hasSihua(fuDe, '化忌')) cautionItems.push('内心不易满足，精神层面有较多烦恼，容易在关系中感到空虚或"还不够"。你可能会在得到之后立刻开始寻找下一个目标，或者总觉得现在的关系缺少什么。这种不满足感的根源往往不在伴侣，而在你自己内心深处的某种缺失。学会在当下找到满足感，而不是永远在追求"更好的"。');
+
+            // ── BDSM 倾向推测 ─────────────────────────────────────
+            // Dom/Sub 倾向
+            let domScore = 0, subScore = 0;
+            // Dom 倾向判断（主要看命宫）
+            if (hasStar(ming, '七杀')) domScore += 3;
+            if (hasStar(ming, '紫微')) domScore += 2;
+            if (hasStar(ming, '廉贞')) domScore += 1.5;
+            if (hasStar(ming, '破军')) domScore += 1;
+            if (hasStar(ming, '武曲')) domScore += 1;
+            if (hasStar(ming, '太阳') && !hasSihua(ming, '化忌')) domScore += 1;  // 太阳化忌不算Dom
+            if (hasQuan && !hasSihua(ming, '化忌')) domScore += 1.5;
+
+            // Sub 倾向判断（增加更多因素）
+            if (hasStar(ming, '天相')) subScore += 2.5;
+            if (hasStar(ming, '天同')) subScore += 2.5;
+            if (hasStar(ming, '太阴')) subScore += 2;
+            if (hasStar(ming, '天梁')) subScore += 1.5;
+            if (hasStar(ming, '天机')) subScore += 1;
+            if (hasStar(ming, '太阳') && hasSihua(ming, '化忌')) subScore += 3;  // 太阳化忌：强Sub
+            if (hasStar(ming, '巨门')) subScore += 1.5;  // 巨门：内心丰富但不主导
+
+            // 子女宫：七杀在子女宫代表"喜欢被征服"而非征服欲
+            if (hasStar(ziNv, '七杀')) subScore += 2;  // 改为Sub倾向
+            if (hasStar(ziNv, '廉贞')) subScore += 1.5;  // 廉贞在子女宫：激情但不一定主导
+            if (hasStar(ziNv, '破军')) subScore += 1;
+            if (hasStar(ziNv, '天相')) subScore += 2;
+            if (hasStar(ziNv, '太阴')) subScore += 2;
+            if (hasStar(ziNv, '天同')) subScore += 1.5;
+            if (hasStar(ziNv, '贪狼')) subScore += 1.5;
+
+            // 福德宫
+            if (hasStar(fuDe, '贪狼')) subScore += 1;
+            if (hasStar(fuDe, '天同')) subScore += 1.5;
+            if (hasStar(fuDe, '太阴')) subScore += 1;
+            if (hasStar(fuDe, '天机')) subScore += 1;
+
+            // 疾厄宫：廉贞天相组合 → 强Sub倾向
+            if (hasStar(jiE, '廉贞') && hasStar(jiE, '天相')) subScore += 2;
+            if (hasStar(jiE, '天相')) subScore += 1.5;
+
+            // 化忌增加Sub倾向
+            if (hasSihua(ming, '化忌')) subScore += 2.5;
+            if (hasSihua(ziNv, '化忌')) subScore += 1.5;
+            if (hasSihua(fuDe, '化忌')) subScore += 1;
+            if (hasSihua(jiE, '化忌')) subScore += 1;
+
+            let bdsmRole, bdsmRoleDesc;
+            const total = domScore + subScore;
+            const domRatio = total > 0 ? domScore / total : 0.5;
+
+            if (domRatio >= 0.65) {  // 从0.7降低到0.65
+                bdsmRole = 'Dom 主导';
+                bdsmRoleDesc = '你有强烈的支配欲，享受掌控对方的感觉，是天然的 Dom 体质。你喜欢设定规则、决定节奏、观察对方在你掌控下的反应——这种权力感本身就是你最大的兴奋点。你不需要对方完全顺从，但你需要感受到自己是主导者。在 BDSM 关系中，你会是那个制定场景、掌握安全词、同时也保护对方的人。真正的 Dom 不是蛮力，而是让对方心甘情愿地把控制权交给你。';
+            } else if (domRatio >= 0.52) {  // 从0.55降低到0.52
+                bdsmRole = '偏 Dom';
+                bdsmRoleDesc = '你偏向主导，但有一定的灵活性。在信任的关系中你会自然展现支配欲，但不会强迫对方接受你的节奏。你享受主导的感觉，但也能欣赏对方偶尔的反抗或主动——那种拉锯感反而让你更兴奋。你不是那种需要完全掌控一切的人，更享受的是双方在动态中找到平衡的过程。';
+            } else if (domRatio <= 0.35) {  // 从0.3提高到0.35
+                bdsmRole = 'Sub 顺从';
+                bdsmRoleDesc = '你有天生的顺从倾向，享受被掌控、被引导、被照顾的感觉。把控制权交给一个你信任的人，对你来说是一种深层的放松和解脱——不需要做决定，只需要感受。你对安全感的需求很高，只有在完全信任对方的前提下才能真正放开。被保护、被支配、甚至被轻微惩罚，在安全的框架内这些都能给你带来强烈的满足感。Sub 不是软弱，而是需要极大的勇气才能做到的信任。';
+            } else if (domRatio <= 0.48) {  // 从0.45提高到0.48
+                bdsmRole = '偏 Sub';
+                bdsmRoleDesc = '你偏向顺从，喜欢被主导，但保有自己的底线和节奏。你不会无条件服从，而是在自己设定的边界内享受被引导的感觉。对方需要赢得你的信任才能让你真正放开，强迫或越界会让你立刻关闭。你享受那种"被看见、被照顾、被掌控"的感觉，但前提是对方足够尊重你。';
+            } else {
+                bdsmRole = 'Switch';
+                bdsmRoleDesc = '你是真正的 Switch，主被动皆可，根据对象和情境自由切换。有时候你想主导一切，有时候你想把控制权完全交出去——这两种状态你都能享受，而且切换起来很自然。这种灵活性让你能和不同类型的人建立深度的 BDSM 关系，但也意味着你需要一个能读懂你当下状态的伴侣。Switch 往往是最难找到完美匹配的类型，因为你的需求本身就是多变的。';
+            }
+
+            // 捆绑/束缚倾向
+            const bondageScore =
+                (hasStar(ming, '七杀') ? 2 : 0) +
+                (hasStar(ming, '破军') ? 2 : 0) +
+                (hasStar(ziNv, '七杀') ? 3 : 0) +        // 子女宫七杀：喜欢被束缚
+                (hasStar(ziNv, '廉贞') ? 2 : 0) +
+                (hasStar(jiE, '廉贞') ? 3 : 0) +         // 疾厄宫廉贞：身体层面的束缚感
+                (hasStar(jiE, '天相') ? 2 : 0) +         // 天相：喜欢被束缚
+                (hasStar(fuDe, '贪狼') ? 1 : 0) +
+                (hasStar(ming, '天相') ? 2 : 0) +
+                (hasStar(ziNv, '太阴') ? 1 : 0) +
+                (hasQuan ? 1 : 0);
+            const bondageTend = bondageScore >= 5 ? '高' : bondageScore >= 3 ? '中' : '低';
+
+            // 施虐/受虐倾向（SM）
+            const sadistScore =
+                (hasStar(ming, '七杀') ? 3 : 0) +
+                (hasStar(ming, '廉贞') ? 2 : 0) +
+                (hasStar(jiE, '武曲') ? 1 : 0) +
+                (hasQuan && !hasSihua(ming, '化忌') ? 1 : 0);
+            const masochScore =
+                (hasStar(ming, '天相') ? 2 : 0) +
+                (hasStar(ming, '太阴') ? 1 : 0) +
+                (hasStar(ziNv, '七杀') ? 3 : 0) +        // 子女宫七杀：受虐倾向
+                (hasStar(ziNv, '廉贞') ? 2 : 0) +        // 子女宫廉贞：喜欢激烈刺激
+                (hasStar(ziNv, '天同') ? 1 : 0) +
+                (hasStar(jiE, '廉贞') ? 3 : 0) +         // 疾厄宫廉贞：身体承受痛感
+                (hasStar(jiE, '天相') ? 2 : 0) +         // 疾厄宫天相：身体敏感
+                (hasSihua(ming, '化忌') ? 2 : 0) +
+                (hasSihua(jiE, '化忌') ? 1 : 0);
+            let smTend;
+            if (sadistScore >= 4) smTend = '施虐倾向明显';
+            else if (masochScore >= 4) smTend = '受虐倾向明显';      // 降低阈值从3到4
+            else if (sadistScore >= 2 && masochScore >= 2) smTend = '施受虐皆有兴趣';
+            else smTend = '对 SM 兴趣一般';
+
+            // 角色扮演倾向
+            const roleplayScore =
+                (hasStar(fuDe, '贪狼') ? 3 : 0) +
+                (hasStar(ming, '天机') ? 2 : 0) +
+                (hasStar(fuDe, '天机') ? 3 : 0) +        // 福德宫天机：心理游戏
+                (hasStar(ziNv, '天机') ? 2 : 0) +
+                (hasStar(ming, '破军') ? 1 : 0) +
+                (hasStar(ziNv, '破军') ? 1 : 0) +
+                (hasStar(fuDe, '廉贞') ? 1 : 0);
+            const roleplayTend = roleplayScore >= 4 ? '高' : roleplayScore >= 2 ? '中' : '低';
+
+            // 展示/被看倾向（Exhibitionism/Voyeurism）
+            const exhibScore =
+                (hasStar(ming, '太阳') && !hasSihua(ming, '化忌') ? 3 : 0) +
+                (hasStar(ming, '贪狼') ? 2 : 0) +
+                (hasStar(fuDe, '太阳') ? 1 : 0) +
+                (hasStar(ming, '廉贞') ? 1 : 0) +
+                (hasStar(ziNv, '廉贞') ? 2 : 0) +        // 子女宫廉贞：展示欲
+                (hasStar(jiE, '廉贞') ? 2 : 0);          // 疾厄宫廉贞：身体展示
+            const voyeurScore =
+                (hasStar(fuDe, '天机') ? 3 : 0) +        // 福德宫天机：观察欲
+                (hasStar(ming, '天机') ? 1 : 0) +
+                (hasStar(ziNv, '天机') ? 2 : 0) +
+                (hasStar(fuDe, '太阴') ? 2 : 0);
+            let exhibTend;
+            if (exhibScore >= 3) exhibTend = '喜欢被看/展示';        // 降低阈值从4到3
+            else if (voyeurScore >= 3) exhibTend = '偏好观察/窥视';
+            else exhibTend = '偏好私密空间';
+
+            // 语言/精神刺激倾向
+            const verbalScore =
+                (hasStar(ming, '巨门') ? 3 : 0) +
+                (hasStar(ziNv, '巨门') ? 2 : 0) +
+                (hasStar(fuDe, '巨门') ? 2 : 0) +
+                (hasStar(fuDe, '天机') ? 2 : 0) +        // 福德宫天机：语言游戏
+                (hasStar(ming, '天机') ? 1 : 0) +
+                (hasStar(jiE, '文昌') ? 2 : 0) +         // 疾厄宫文昌：语言刺激
+                (hasStar(jiE, '文曲') ? 2 : 0) +
+                (hasStar(ming, '文昌') ? 1 : 0) +
+                (hasStar(ming, '文曲') ? 1 : 0) +
+                (hasStar(fuDe, '天梁') ? 1 : 0);
+            const verbalTend = verbalScore >= 4 ? '高——语言和精神刺激对你极为重要' :
+                               verbalScore >= 2 ? '中——适当的语言互动能增强体验' : '低——更注重肢体感受';
+
+            // 特殊癖好推测
+            const fetishItems = [];
+            if (hasStar(ming, '七杀') || hasStar(ziNv, '七杀')) fetishItems.push({ label: '权力游戏 Power Exchange', desc: '对权力差异有强烈兴趣，主从关系本身就是最大的刺激。你享受那种"我说了算"或"你说了算"的明确感，模糊的权力关系反而让你不舒服。可能对主仆、主奴、老师学生等带有权力落差的场景有特别的吸引力。这不只是肉体层面的，更是心理层面的——谁掌控谁，谁服从谁，这个动态本身就让你兴奋。' });
+            if (hasStar(ming, '破军') || hasStar(ziNv, '破军')) fetishItems.push({ label: '禁忌探索 Taboo', desc: '越是禁忌越有吸引力，喜欢突破边界和常规。你对"不应该"有天然的好奇心，社会规范和道德边界对你来说更像是挑战而不是约束。可能对公共场所、角色扮演中的禁忌场景、或者打破某种"规则"的行为有特别的兴趣。这种兴奋感来自于越界本身——不是因为不道德，而是因为那种"我们在做别人不敢做的事"的感觉。' });
+            if (hasStar(fuDe, '贪狼') || hasStar(ziNv, '贪狼')) fetishItems.push({ label: '多元感官 Sensory Play', desc: '对各种感官刺激都有兴趣，喜欢探索不同的体验方式。视觉、听觉、触觉、嗅觉——你对感官的开放度很高，愿意尝试蒙眼、冰火、羽毛、蜡烛等各种感官游戏。你的好奇心驱使你不断探索新的刺激方式，单一的感官体验很快就会让你觉得不够。你可能对情趣用品、特殊材质的衣物或道具有天然的兴趣。' });
+            if (hasStar(ming, '廉贞') || hasStar(ziNv, '廉贞')) fetishItems.push({ label: '激情与危险感 Edgeplay', desc: '对带有紧张感和激情的场景有特别的吸引力。你喜欢那种心跳加速、肾上腺素飙升的感觉，安全但带有"危险感"的场景最能激发你。可能对窒息感、强度较高的束缚、或者带有强烈情绪冲突的场景有兴趣。你需要感受到那种"边缘感"——不是真的危险，而是那种站在边缘的刺激。请务必在充分了解安全知识的前提下探索这类体验。' });
+            if (hasStar(ming, '太阴') || hasStar(ziNv, '太阴')) fetishItems.push({ label: '细腻触感 Sensation Play', desc: '对触感和细节极为敏感，轻柔的接触有时比激烈的动作更能触动你。你可能对特定材质有偏好——丝绸、皮革、蕾丝，或者特定的触碰方式。你的皮肤感受力很强，轻抚、指尖的触碰、甚至呼吸的温度都能让你有强烈的反应。蒙眼之后触感会被放大，这对你来说可能是非常强烈的体验。你享受那种被细心对待、被认真感受的感觉。' });
+            if (hasStar(fuDe, '天机') || hasStar(ming, '天机')) fetishItems.push({ label: '心理博弈 Mind Games', desc: '享受心理层面的拉扯和博弈，智识上的吸引是前戏的一部分。你对心理控制、语言游戏、甚至轻微的煤气灯效应（在安全框架内）有兴趣。你喜欢那种"我知道你在想什么"的感觉，也享受被对方看穿的感觉。深度的心理互动对你来说比任何肉体刺激都更有力量。你可能对催眠、心理暗示、或者带有心理控制元素的场景有特别的兴趣。' });
+            if (hasStar(ming, '紫微') || hasStar(fuDe, '紫微')) fetishItems.push({ label: '崇拜与仪式感 Worship', desc: '对仪式感和被崇拜有隐秘的渴望，尊严感是重要的兴奋点。你可能享受被对方以某种仪式化的方式对待——跪拜、亲吻、特定的称谓，这些形式感对你来说不是表演，而是真实的权力确认。你也可能享受崇拜对方的感觉——把对方当成神明一样供奉，这种极度的仰视本身就是一种满足。仪式感让亲密关系有了某种神圣性，这对你很重要。' });
+            if (hasStar(jiE, '贪狼') || hasStar(jiE, '廉贞')) fetishItems.push({ label: '持久与耐力 Endurance', desc: '体能旺盛，享受长时间的亲密互动，不喜欢草草了事。你可能对马拉松式的亲密关系有特别的兴趣，享受那种被慢慢消耗、逐渐达到极限的感觉。长时间的前戏、反复的高潮、或者刻意延迟满足——这些对你来说都是享受而不是折磨。你的身体耐受力强，也享受测试自己和对方的极限。' });
+            if (hasStar(fuDe, '破军')) fetishItems.push({ label: '失控与释放 Catharsis', desc: '享受完全放开、失去控制的感觉，束缚和释放都能带来快感。你内心深处有一种渴望——彻底放下所有的理性和控制，让自己完全沉浸在感受里。这种"失控"对你来说是一种深层的释放，日常生活中你可能承担了太多责任和控制，亲密关系是你唯一可以放下一切的地方。哭泣、颤抖、完全的情绪释放——这些在亲密关系中对你来说都是正常且珍贵的体验。' });
+            if (hasStar(ming, '天相') || hasStar(ziNv, '天相')) fetishItems.push({ label: '服务与取悦 Service', desc: '你有强烈的取悦欲，享受让对方满足的过程。看到对方因为你而感到愉悦，对你来说是一种深层的满足感。你可能对"服务型 Sub"的角色有天然的亲近感——不是因为软弱，而是因为你真心享受照顾和取悦对方。你的满足感很大程度上来自于对方的反应，对方越投入，你越兴奋。' });
+            if (fetishItems.length === 0) fetishItems.push({ label: '经典偏好 Classic', desc: '没有特别突出的特殊癖好，偏好传统、直接的亲密方式。这不代表你无聊——经典的方式之所以经典，是因为它真的有效。你更看重的是双方的化学反应和情感连接，而不是形式上的新奇。在足够信任的关系里，你可能会逐渐开放，尝试一些之前没想过的体验。' });
+
+            // ── 组装 HTML ─────────────────────────────────────────
+            const nameDisplay = username ? `${username} 的` : '你的';
+            let html = `<div class="result-card-wrap" id="shareCard">`;
+            html += `<div class="username-display">${username || '匿名'}</div>`;
+            html += `<div class="result-title">${nameDisplay}性偏好图谱</div>`;
+            html += `<p class="result-subtitle">基于命盘推算 · 仅供娱乐参考</p>`;
+
+            // 标签行
+            html += `<div class="tag-row">`;
+            const desireTagClass = desireBar >= 70 ? 'tag-strong' : desireBar >= 50 ? 'tag-medium' : 'tag-soft';
+            html += `<span class="tag ${desireTagClass}">欲望 ${desireLevel}</span>`;
+            html += `<span class="tag ${roleTagClass}">${roleTag}</span>`;
+            html += `<span class="tag tag-passive">${bdsmRole}</span>`;
+            styleItems.slice(0, 1).forEach(s => {
+                html += `<span class="tag tag-balance">${s.icon} ${s.text.split('，')[0]}</span>`;
+            });
+            html += `</div>`;
+
+            // 欲望强度卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(255,100,100,0.15);">🌡️</div>
+                    <div class="card-title">欲望强度</div>
+                </div>
+                <div class="meter-row">
+                    <span class="meter-label">强度</span>
+                    <div class="meter-bar"><div class="meter-fill" style="width:${desireBar}%"></div></div>
+                    <span class="meter-value">${desireLevel}</span>
+                </div>
+                <div class="card-body">${desireText}</div>
+            </div>`;
+
+            // 主被动卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(100,150,255,0.15);">⚖️</div>
+                    <div class="card-title">主被动倾向 · ${roleTag}</div>
+                </div>
+                <div class="card-body">${roleText}</div>
+            </div>`;
+
+            // BDSM 卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(180,0,255,0.15);">🔗</div>
+                    <div class="card-title">BDSM 倾向</div>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:16px;">
+                        <div style="font-weight:700;color:#c9a0ff;font-size:16px;margin-bottom:6px;">${bdsmRole}</div>
+                        <div style="line-height:1.8;">${bdsmRoleDesc}</div>
+                    </div>
+                    <div style="margin-bottom:12px;font-size:13px;opacity:0.6;text-transform:uppercase;letter-spacing:1px;">各维度倾向</div>
+                    <div style="margin-bottom:12px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                            <span style="font-size:13px;">束缚 / Bondage</span>
+                            <span class="bdsm-tag ${bondageTend === '高' ? 'high' : ''}" style="padding:2px 10px;font-size:12px;">${bondageTend}</span>
+                        </div>
+                        ${bondageTend === '高' ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">对束缚和被束缚有强烈兴趣，无论是施加还是承受，身体被限制的感觉对你来说是强烈的兴奋点。可以探索绳缚、手铐、束带等方式，务必学习安全知识。</div>' :
+                          bondageTend === '中' ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">对束缚有一定兴趣，在信任的关系里愿意尝试，但不是必需品。轻度的束缚（如手腕固定）可能会增加体验感。</div>' :
+                          '<div style="font-size:13px;opacity:0.75;line-height:1.6;">对束缚兴趣不大，更喜欢自由移动的状态，被限制会让你感到不适。</div>'}
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                            <span style="font-size:13px;">施虐受虐 / SM</span>
+                            <span class="bdsm-tag ${sadistScore >= 4 || masochScore >= 3 ? 'high' : ''}" style="padding:2px 10px;font-size:12px;">${smTend}</span>
+                        </div>
+                        ${sadistScore >= 4 ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">你有明显的施虐倾向，享受给对方带来（在对方同意范围内的）痛苦或不适，并从对方的反应中获得满足感。这需要极高的信任基础和清晰的边界协商。</div>' :
+                          masochScore >= 3 ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">你有明显的受虐倾向，在安全的框架内，适度的疼痛或惩罚能给你带来强烈的满足感。这是一种正常的性偏好，关键是找到尊重你边界的伴侣。</div>' :
+                          sadistScore >= 2 && masochScore >= 2 ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">你对施虐和受虐都有一定兴趣，根据情境和对象可以切换。这种双向性让你有更多探索空间。</div>' :
+                          '<div style="font-size:13px;opacity:0.75;line-height:1.6;">对 SM 兴趣不大，更偏好不涉及疼痛的亲密方式。</div>'}
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                            <span style="font-size:13px;">角色扮演 / Roleplay</span>
+                            <span class="bdsm-tag ${roleplayTend === '高' ? 'high' : ''}" style="padding:2px 10px;font-size:12px;">${roleplayTend}</span>
+                        </div>
+                        ${roleplayTend === '高' ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">角色扮演对你有强烈吸引力，扮演不同的身份和场景能极大地增强你的体验。你可能对特定的角色组合有偏好——老师/学生、主人/仆人、陌生人等，场景感本身就是你的兴奋点。</div>' :
+                          roleplayTend === '中' ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">对角色扮演有一定兴趣，偶尔尝试能增加新鲜感，但不是每次都需要。</div>' :
+                          '<div style="font-size:13px;opacity:0.75;line-height:1.6;">对角色扮演兴趣不大，更喜欢真实自然的互动，不需要"戏剧感"。</div>'}
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                            <span style="font-size:13px;">展示 / 窥视</span>
+                            <span class="bdsm-tag" style="padding:2px 10px;font-size:12px;">${exhibTend}</span>
+                        </div>
+                        ${exhibScore >= 4 ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">你享受被看见、被欣赏的感觉，知道对方的目光在你身上会让你更兴奋。可能对镜子、拍摄（私下保存）或特定的展示场景有兴趣。</div>' :
+                          voyeurScore >= 3 ? '<div style="font-size:13px;opacity:0.75;line-height:1.6;">你享受观察的感觉，看到对方的反应和状态对你来说是强烈的刺激。视觉上的满足感对你很重要。</div>' :
+                          '<div style="font-size:13px;opacity:0.75;line-height:1.6;">你偏好私密的空间，不喜欢被看或看别人，亲密关系对你来说是完全私人的事。</div>'}
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                            <span style="font-size:13px;">语言刺激 / Dirty Talk</span>
+                            <span class="bdsm-tag ${verbalScore >= 4 ? 'high' : ''}" style="padding:2px 10px;font-size:12px;">${verbalTend.split('——')[0]}</span>
+                        </div>
+                        <div style="font-size:13px;opacity:0.75;line-height:1.6;">${
+                          verbalScore >= 4 ? '语言对你来说是极为重要的刺激方式，对方说的话、用的词、声音的语气都能直接影响你的状态。你可能比大多数人更享受 dirty talk，也更容易被语言点燃或熄灭。' :
+                          verbalScore >= 2 ? '适当的语言互动能增强你的体验，完全沉默会让你感到有些疏离。不需要很露骨，但对方的声音和表达很重要。' :
+                          '你更注重肢体感受，语言对你的影响相对有限。安静的亲密对你来说反而更专注。'
+                        }</div>
+                    </div>
+                </div>
+            </div>`;
+
+            // 风格偏好卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(100,255,150,0.15);">✨</div>
+                    <div class="card-title">风格偏好</div>
+                </div>
+                <div class="card-body">`;
+            styleItems.forEach((s, idx) => {
+                html += `<div style="margin-bottom:${idx < styleItems.length - 1 ? '16px' : '0'};">
+                    <div style="font-size:20px;margin-bottom:6px;">${s.icon}</div>
+                    <div style="line-height:1.8;font-size:14px;">${s.text}</div>
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            // 特殊癖好卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(255,180,0,0.15);">🌶️</div>
+                    <div class="card-title">癖好推测</div>
+                </div>
+                <div class="card-body">`;
+            fetishItems.forEach((f, idx) => {
+                html += `<div style="margin-bottom:${idx < fetishItems.length - 1 ? '16px' : '0'};">
+                    <div style="font-weight:700;color:#ffd699;margin-bottom:6px;font-size:15px;">${f.label}</div>
+                    <div style="line-height:1.8;font-size:14px;">${f.desc}</div>
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            // 伴侣偏好卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(255,150,100,0.15);">💑</div>
+                    <div class="card-title">伴侣偏好</div>
+                </div>
+                <div class="card-body">`;
+            partnerItems.forEach(p => {
+                html += `<div style="margin-bottom:14px;">
+                    <div style="font-weight:700;color:#e0c8ff;margin-bottom:4px;">▸ ${p.trait}</div>
+                    <div style="font-size:14px;line-height:1.7;opacity:0.85;">${p.desc}</div>
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            // 加成项
+            if (bonusItems.length > 0) {
+                html += `<div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(255,255,100,0.15);">⭐</div>
+                        <div class="card-title">天赋加成</div>
+                    </div>
+                    <div class="card-body">`;
+                bonusItems.forEach(b => { html += `<div style="margin-bottom:8px;">· ${b}</div>`; });
+                html += `</div></div>`;
+            }
+
+            // 注意事项
+            if (cautionItems.length > 0) {
+                html += `<div class="note-box">⚠️ <b>注意事项</b><br><br>`;
+                cautionItems.forEach(c => { html += `· ${c}<br><br>`; });
+                html += `</div>`;
+            }
+
+            html += `</div>`; // 关闭 result-card-wrap
+
+            return html;
+        }
+
+        // 主分析函数
+        function analyze() {
+            const calendarType = document.getElementById('calendarType').value;
+            const year = parseInt(document.getElementById('year').value);
+            const month = parseInt(document.getElementById('month').value);
+            const day = parseInt(document.getElementById('day').value);
+            const hourVal = parseInt(document.getElementById('hour').value);
+            const gender = document.getElementById('gender').value;
+            const username = document.getElementById('username').value.trim();
+
+            if (!year || !month || !day) {
+                alert('请填写完整的出生日期');
+                return;
+            }
+
+            let lunarDate;
+            if (calendarType === 'solar') {
+                lunarDate = ZiWei.solarToLunar(year, month, day);
+            } else {
+                lunarDate = { year, month, day };
+            }
+
+            const hour = hourVal === -1 ? 12 : hourVal;
+            const hourUnknown = hourVal === -1;
+
+            const chart = ZiWei.paipan(lunarDate.year, lunarDate.month, lunarDate.day, hour, gender);
+
+            let html = analyzePreference(chart, gender, username);
+
+            if (hourUnknown) {
+                html += `<div class="note-box" style="margin-top:0;border-radius:0 0 20px 20px;">⏰ 时辰未知，以午时推算，命宫判断可能有偏差。</div>`;
+            }
+
+            // 分享/保存按钮
+            html += `<div class="share-bar">
+                <button class="btn-save" onclick="saveAsImage()">📥 保存为图片</button>
+                <button class="btn-copy" onclick="copyResult()">📋 复制文字结果</button>
+            </div>`;
+
+            document.getElementById('resultContent').innerHTML = html;
+            document.getElementById('resultSection').classList.add('show');
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 保存为图片（使用 html2canvas）
+        function saveAsImage() {
+            const card = document.getElementById('shareCard');
+            if (!card) return;
+            if (typeof html2canvas === 'undefined') {
+                alert('正在加载截图库，请稍后再试...');
+                loadHtml2Canvas(saveAsImage);
+                return;
+            }
+            html2canvas(card, { scale: 2, useCORS: true, backgroundColor: null }).then(canvas => {
+                const link = document.createElement('a');
+                const name = document.getElementById('username').value.trim() || '性偏好测试';
+                link.download = `${name}的性偏好图谱.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // 复制文字结果
+        function copyResult() {
+            const card = document.getElementById('shareCard');
+            if (!card) return;
+            const text = card.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制到剪贴板，可以直接粘贴分享给朋友 🎉');
+            }).catch(() => {
+                // 降级方案
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                alert('已复制到剪贴板 🎉');
+            });
+        }
+
+        // 懒加载 html2canvas
+        function loadHtml2Canvas(callback) {
+            const s = document.createElement('script');
+            s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            s.onload = callback;
+            document.head.appendChild(s);
+        }
+
+        // 预加载 html2canvas
+        loadHtml2Canvas(() => {});
+    </script>
+</body>
+</html>
