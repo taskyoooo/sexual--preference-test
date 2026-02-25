@@ -12,29 +12,52 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: url('leopard.jpg') repeat;
+            background-size: 400px 400px;
             min-height: 100vh;
             padding: 20px;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            z-index: 0;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 248, 240, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 30px 90px rgba(101, 67, 33, 0.4);
+            position: relative;
+            z-index: 1;
+            border: 3px solid rgba(218, 165, 32, 0.6);
         }
         h1 {
             text-align: center;
-            color: #333;
+            background: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #8B4513 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 8px;
-            font-size: 28px;
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 1px;
         }
         .subtitle {
             text-align: center;
-            color: #888;
+            color: #8B4513;
             font-size: 14px;
             margin-bottom: 30px;
+            font-weight: 500;
         }
         .share-bar {
             display: flex;
@@ -47,52 +70,96 @@
             font-size: 15px;
         }
         .btn-save {
-            background: linear-gradient(135deg, #11998e, #38ef7d) !important;
+            background: linear-gradient(135deg, #8B4513, #A0522D) !important;
+            border: 2px solid #8B4513 !important;
         }
         .btn-copy {
-            background: linear-gradient(135deg, #f7971e, #ffd200) !important;
-            color: #333 !important;
+            background: linear-gradient(135deg, #DAA520, #FFD700) !important;
+            color: #000 !important;
+            border: 2px solid #DAA520 !important;
         }
         .result-card-wrap {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            border-radius: 20px;
-            padding: 28px 24px;
-            color: white;
-            margin-bottom: 14px;
+            background: url('leopard.jpg') repeat;
+            background-size: 300px 300px;
+            border-radius: 24px;
+            padding: 36px 32px;
+            color: #2d1810;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 60px rgba(101, 67, 33, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(218, 165, 32, 0.5);
+        }
+        .result-card-wrap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 248, 240, 0.92);
+            z-index: 0;
+        }
+        .result-card-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #DAA520, #8B4513);
+            z-index: 2;
+        }
+        .result-card-wrap > * {
+            position: relative;
+            z-index: 1;
         }
         .result-card-wrap .result-title {
-            color: white;
-            font-size: 20px;
+            color: #8B4513;
+            font-size: 26px;
+            font-weight: 700;
         }
         .result-card-wrap .result-subtitle {
-            color: rgba(255,255,255,0.5);
+            color: #A0522D;
+            font-size: 14px;
         }
         .result-card-wrap .card {
-            background: rgba(255,255,255,0.08);
-            box-shadow: none;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 248, 240, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(101, 67, 33, 0.2);
+            border: 2px solid rgba(218, 165, 32, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .result-card-wrap .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(101, 67, 33, 0.3);
+            border-color: rgba(218, 165, 32, 0.5);
         }
         .result-card-wrap .card-title {
-            color: #e0e0ff;
+            color: #8B4513;
+            font-weight: 600;
         }
         .result-card-wrap .card-body {
-            color: rgba(255,255,255,0.8);
+            color: #2d1810;
         }
         .result-card-wrap .meter-bar {
-            background: rgba(255,255,255,0.15);
+            background: rgba(139, 69, 19, 0.15);
+            border: 1px solid rgba(218, 165, 32, 0.3);
         }
         .result-card-wrap .meter-value {
-            color: rgba(255,255,255,0.7);
+            color: #654321;
+            font-weight: 600;
         }
         .result-card-wrap .note-box {
-            background: rgba(255,200,0,0.15);
-            color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+            color: #8B4513;
+            border: 2px solid rgba(218, 165, 32, 0.4);
         }
         .username-display {
             text-align: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            color: #c9a0ff;
+            color: #8B4513;
             margin-bottom: 4px;
         }
         .bdsm-row {
@@ -102,18 +169,19 @@
             margin-top: 10px;
         }
         .bdsm-tag {
-            padding: 4px 12px;
-            border-radius: 12px;
+            padding: 6px 14px;
+            border-radius: 16px;
             font-size: 13px;
             font-weight: 600;
-            background: rgba(255,255,255,0.12);
-            color: #e0c8ff;
-            border: 1px solid rgba(200,150,255,0.3);
+            background: rgba(255, 248, 240, 0.9);
+            color: #8B4513;
+            border: 2px solid rgba(218, 165, 32, 0.5);
         }
         .bdsm-tag.high {
-            background: rgba(180,0,255,0.25);
-            color: #e8b4ff;
-            border-color: rgba(180,0,255,0.4);
+            background: rgba(218, 165, 32, 0.3);
+            color: #654321;
+            border: 2px solid #DAA520;
+            font-weight: 700;
         }
         .input-section {
             margin-bottom: 30px;
@@ -124,20 +192,22 @@
         label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
-            font-weight: 500;
+            color: #8B4513;
+            font-weight: 600;
         }
         input, select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border: 2px solid #DAA520;
+            border-radius: 12px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s;
         }
         input:focus, select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #8B4513;
+            box-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
         }
         .date-inputs {
             display: grid;
@@ -151,18 +221,20 @@
         }
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 16px;
+            background: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #8B4513 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(101, 67, 33, 0.3);
         }
         button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(101, 67, 33, 0.4);
         }
         button:active {
             transform: translateY(0);
@@ -262,7 +334,7 @@
         .meter-fill {
             height: 100%;
             border-radius: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, #8B4513, #DAA520);
             transition: width 0.8s ease;
         }
         .meter-value {
@@ -875,7 +947,303 @@
             const verbalTend = verbalScore >= 4 ? '高——语言和精神刺激对你极为重要' :
                                verbalScore >= 2 ? '中——适当的语言互动能增强体验' : '低——更注重肢体感受';
 
-            // 特殊癖好推测
+            // ── K级分类系统 (Kinsey-inspired BDSM Scale) ──────────
+            // 计算综合强度分数
+            let kScore = 0;
+            kScore += bondageScore * 1.8;
+            kScore += (sadistScore + masochScore) * 1.5;
+            kScore += roleplayScore * 1.2;
+            kScore += verbalScore * 1.0;
+            kScore += (exhibScore + voyeurScore) * 0.8;
+            if (domScore > subScore) kScore += (domScore - subScore) * 0.8;
+            else kScore += (subScore - domScore) * 0.8;
+            // 基础加分，让每个人都有一定的K级
+            kScore += 5;
+
+            let kLevel, kLevelDesc, kLevelColor;
+            if (kScore >= 28) {
+                kLevel = 'K9'; kLevelColor = '#ff0066';
+                kLevelDesc = '极重度 BDSM 倾向。你的性偏好深度涉及权力交换、强烈的身体刺激和复杂的心理动态。你可能对 TPE（全权力交换）、24/7 主从关系、高强度 SM、极限束缚等有强烈兴趣。这个级别需要极高的信任、丰富的经验和严格的安全措施。建议深入学习 SSC（安全、理智、知情同意）和 RACK（风险意识的知情同意）原则。';
+            } else if (kScore >= 24) {
+                kLevel = 'K8'; kLevelColor = '#ff1a75';
+                kLevelDesc = '重度 BDSM 倾向。你对 BDSM 的兴趣已经超越了偶尔尝试，可能希望将其融入日常生活。对高强度的束缚、SM、权力交换有明确需求。可能对 CNC（协商一致的非同意）、Primal Play（原始游戏）、严格的纪律与惩罚有兴趣。需要寻找经验丰富、价值观契合的伴侣。';
+            } else if (kScore >= 20) {
+                kLevel = 'K7'; kLevelColor = '#ff3385';
+                kLevelDesc = '中重度 BDSM 倾向。BDSM 是你性生活的重要组成部分，不只是调剂。你可能对绳缚艺术（Shibari）、鞭打、电击、针刺、羞辱游戏等有明确偏好。开始探索更深层的心理支配与臣服关系。建议加入本地 BDSM 社群，参加工作坊学习技术和安全知识。';
+            } else if (kScore >= 16) {
+                kLevel = 'K6'; kLevelColor = '#ff4d94';
+                kLevelDesc = '中度 BDSM 倾向。你对 BDSM 有稳定的兴趣，愿意定期实践。可能对中等强度的束缚、鞭打、滴蜡、角色扮演、宠物游戏（Pet Play）有兴趣。开始建立自己的偏好体系，知道什么能激发你，什么是硬限制（Hard Limit）。';
+            } else if (kScore >= 12) {
+                kLevel = 'K5'; kLevelColor = '#ff66a3';
+                kLevelDesc = '中轻度 BDSM 倾向。你对 BDSM 有明确的好奇和兴趣，愿意主动探索。可能对轻度束缚、蒙眼、轻度疼痛刺激、主从角色扮演感兴趣。这是一个探索期，建议多沟通、多尝试，找到自己真正喜欢的方向。';
+            } else if (kScore >= 8) {
+                kLevel = 'K4'; kLevelColor = '#ff80b3';
+                kLevelDesc = '轻度 BDSM 倾向。你对 BDSM 元素有一定兴趣，但不是必需品。可能偶尔喜欢尝试手铐、丝巾束缚、轻微的权力游戏。这些元素能增加新鲜感，但传统方式也能让你满足。';
+            } else if (kScore >= 7) {
+                kLevel = 'K3'; kLevelColor = '#ff99c2';
+                kLevelDesc = '微度 BDSM 倾向。你对 BDSM 有一点点好奇，但不确定是否真的喜欢。可能在特定情境下愿意尝试非常轻度的元素，比如被蒙眼、轻微的角色扮演。需要足够的安全感和信任才会尝试。';
+            } else if (kScore >= 4) {
+                kLevel = 'K2'; kLevelColor = '#ffb3d1';
+                kLevelDesc = '极轻度倾向。你对 BDSM 基本没有兴趣，偏好传统的亲密方式。可能偶尔接受非常温和的变化（如轻微的主导/配合），但任何明显的权力差异或疼痛刺激都会让你不适。';
+            } else {
+                kLevel = 'K1'; kLevelColor = '#ffcce0';
+                kLevelDesc = '无 BDSM 倾向。你完全不需要 BDSM 元素，偏好平等、温和、传统的亲密关系。任何形式的束缚、疼痛或权力游戏都会让你感到不舒服。你更看重情感连接和舒适的体验。';
+            }
+
+            // ── 扩展小众癖好分类 (20+ 种详细分类) ──────────────
+            const detailedFetishes = [];
+
+            // 1. 绳缚艺术 Shibari/Kinbaku
+            if (bondageScore >= 1 || hasStar(fuDe, '太阴') || hasStar(ming, '天机') || hasStar(ziNv, '七杀') || hasStar(ming, '太阴') || hasStar(ziNv, '天机') || hasStar(jiE, '太阴') || hasStar(fuDe, '天机')) {
+                detailedFetishes.push({
+                    name: '绳缚艺术 Shibari',
+                    intensity: '中-高',
+                    desc: '对日式绳缚有特别的美学追求。不只是束缚本身，更是绳索在身体上形成的图案、压迫感、以及整个过程的仪式感。你可能对麻绳的质感、绳结的对称性、身体被绳索勒出的痕迹有特别的迷恋。',
+                    tags: ['视觉美学', '身体艺术', '信任建立']
+                });
+            }
+
+            // 2. 宠物游戏 Pet Play
+            if (hasStar(ziNv, '天同') || hasStar(ming, '天相') || hasStar(ming, '天同') || subScore >= 1 || hasStar(fuDe, '天同') || hasStar(ziNv, '天相') || hasStar(fuDe, '天相')) {
+                detailedFetishes.push({
+                    name: '宠物游戏 Pet Play',
+                    intensity: '轻-中',
+                    desc: '享受扮演宠物（小猫、小狗、小兔等）的角色，被主人照顾、训练、奖励或惩罚。这种角色让你可以放下人类的复杂性，回到更纯粹的状态。可能对项圈、牵引绳、宠物碗、耳朵尾巴等道具有兴趣。',
+                    tags: ['角色扮演', '照顾关系', '放松心智']
+                });
+            }
+
+            // 3. 羞辱游戏 Humiliation
+            if (hasStar(ming, '巨门') || hasStar(ziNv, '巨门') || masochScore >= 1 || sadistScore >= 1 || hasStar(fuDe, '巨门') || hasStar(jiE, '巨门')) {
+                detailedFetishes.push({
+                    name: '羞辱游戏 Humiliation',
+                    intensity: '中-高',
+                    desc: '对语言或行为上的羞辱有强烈反应。可能是享受被羞辱（言语贬低、公开展示、强制行为），或享受羞辱对方。这是一种深层的心理游戏，需要极高的信任和明确的边界。羞辱的快感来自于打破社会规范和自我形象。',
+                    tags: ['心理刺激', '权力动态', '边界探索']
+                });
+            }
+
+            // 4. 感官剥夺 Sensory Deprivation
+            if (hasStar(fuDe, '太阴') || hasStar(ming, '太阴') || bondageScore >= 1 || hasStar(ziNv, '太阴') || hasStar(ming, '天机') || hasStar(jiE, '太阴') || hasStar(fuDe, '天机')) {
+                detailedFetishes.push({
+                    name: '感官剥夺 Sensory Deprivation',
+                    intensity: '中',
+                    desc: '通过蒙眼、耳塞、隔音头套等方式剥夺部分感官，让其他感官被放大。触觉、听觉、甚至时间感都会变得异常敏锐。这种不确定感和对对方的完全依赖能带来强烈的心理体验。',
+                    tags: ['感官强化', '信任依赖', '心理沉浸']
+                });
+            }
+
+            // 5. 冰火游戏 Temperature Play
+            if (hasStar(fuDe, '贪狼') || hasStar(ziNv, '贪狼') || hasStar(ming, '贪狼') || hasStar(jiE, '贪狼') || hasStar(ming, '廉贞') || hasStar(ziNv, '廉贞')) {
+                detailedFetishes.push({
+                    name: '冰火游戏 Temperature Play',
+                    intensity: '轻-中',
+                    desc: '使用冰块、热蜡、温水、冷热交替刺激皮肤。温度的变化能带来强烈的感官冲击，冰的刺痛和蜡的灼热形成鲜明对比。这是一种相对安全但效果明显的感官游戏。',
+                    tags: ['感官刺激', '温度对比', '安全探索']
+                });
+            }
+
+            // 6. 电击游戏 Electrostimulation
+            if (hasStar(ming, '廉贞') || hasStar(ziNv, '廉贞') || hasStar(jiE, '廉贞') || hasStar(fuDe, '廉贞') || kScore >= 7) {
+                detailedFetishes.push({
+                    name: '电击游戏 E-stim',
+                    intensity: '高',
+                    desc: '使用电击棒、电击项圈、TENS 设备等产生电流刺激。从轻微的刺痛到强烈的肌肉收缩，电击能带来独特的感受。这是一种高风险游戏，必须使用专业设备，避开心脏和头部区域。',
+                    tags: ['强烈刺激', '技术要求', '风险管理']
+                });
+            }
+
+            // 7. 窒息游戏 Breath Play
+            if ((hasStar(ming, '廉贞') || hasStar(jiE, '廉贞') || hasStar(ziNv, '廉贞') || hasStar(fuDe, '廉贞')) && kScore >= 8) {
+                detailedFetishes.push({
+                    name: '窒息游戏 Breath Play',
+                    intensity: '极高',
+                    desc: '通过控制呼吸（手掐、绳索、面罩等）产生缺氧感。这是 BDSM 中最危险的游戏之一，可能导致严重后果甚至死亡。如果一定要尝试，必须充分学习安全知识，永远不要单独进行，设置明确的安全信号。',
+                    tags: ['极限体验', '高度危险', '严格安全']
+                });
+            }
+
+            // 8. 针刺游戏 Needle Play
+            if ((hasStar(ming, '七杀') || hasStar(ziNv, '七杀') || hasStar(fuDe, '七杀')) && kScore >= 8) {
+                detailedFetishes.push({
+                    name: '针刺游戏 Needle Play',
+                    intensity: '高',
+                    desc: '使用无菌针头刺穿皮肤，产生疼痛和视觉刺激。这是一种极度小众的游戏，需要医疗级别的卫生条件和专业知识。针刺的疼痛是尖锐而持续的，与鞭打完全不同。',
+                    tags: ['极限疼痛', '医疗级卫生', '专业技术']
+                });
+            }
+
+            // 9. 蜡烛游戏 Wax Play
+            if (hasStar(ziNv, '廉贞') || hasStar(jiE, '廉贞') || hasStar(ming, '廉贞') || hasStar(fuDe, '廉贞') || hasStar(fuDe, '贪狼')) {
+                detailedFetishes.push({
+                    name: '蜡烛游戏 Wax Play',
+                    intensity: '轻-中',
+                    desc: '将融化的蜡油滴在皮肤上，产生灼热感和视觉效果。不同蜡烛温度不同（大豆蜡最低，石蜡最高），可以根据承受度选择。蜡油凝固后剥离的过程也是一种独特体验。',
+                    tags: ['温度刺激', '视觉美感', '可控强度']
+                });
+            }
+
+            // 10. 鞭打游戏 Impact Play
+            if (sadistScore >= 1 || masochScore >= 1 || hasStar(ming, '七杀') || hasStar(ziNv, '七杀') || hasStar(ming, '破军') || hasStar(ziNv, '破军') || hasStar(fuDe, '七杀') || hasStar(jiE, '七杀')) {
+                detailedFetishes.push({
+                    name: '鞭打游戏 Impact Play',
+                    intensity: '中-高',
+                    desc: '使用手掌、鞭子、桨板、藤条等击打身体。从轻柔的拍打到留下痕迹的鞭打，强度可以灵活调整。疼痛会释放内啡肽，产生"飞行感"（Subspace）。需要学习安全区域，避开脊椎、肾脏、关节等危险部位。',
+                    tags: ['疼痛刺激', '内啡肽释放', '技术学习']
+                });
+            }
+
+            // 11. 尿控游戏 Watersports
+            if (hasStar(ming, '破军') || hasStar(ziNv, '破军') || hasStar(fuDe, '破军') || hasStar(jiE, '破军')) {
+                detailedFetishes.push({
+                    name: '尿控游戏 Watersports',
+                    intensity: '中',
+                    desc: '涉及尿液的游戏，可能是被尿、喝尿、憋尿控制等。这是一种禁忌感很强的游戏，打破了社会对"干净"的定义。对一些人来说，这种羞辱感和臣服感是强烈的兴奋点。',
+                    tags: ['禁忌探索', '羞辱元素', '卫生注意']
+                });
+            }
+
+            // 12. 粪便游戏 Scat Play
+            if (hasStar(ming, '破军') && hasStar(ziNv, '破军') && kScore >= 10) {
+                detailedFetishes.push({
+                    name: '粪便游戏 Scat Play',
+                    intensity: '极高',
+                    desc: '涉及粪便的游戏，是最极端的禁忌之一。这种游戏打破了几乎所有社会规范，只有极少数人能接受。如果你对此有兴趣，务必注意卫生和健康风险。',
+                    tags: ['极限禁忌', '健康风险', '极度小众']
+                });
+            }
+
+            // 13. 年龄游戏 Age Play
+            if (hasStar(fuDe, '天同') || hasStar(ming, '天同') || hasStar(ziNv, '天同') || hasStar(ming, '天相') || hasStar(ziNv, '天相') || hasStar(fuDe, '天相')) {
+                detailedFetishes.push({
+                    name: '年龄游戏 Age Play',
+                    intensity: '轻-中',
+                    desc: '扮演不同年龄的角色，通常是成年人扮演儿童（Little）或照顾者（Caregiver/Daddy/Mommy）。这不涉及真实儿童，而是成年人之间的角色扮演。Little 可以体验被照顾、被保护的感觉，暂时逃离成年人的责任。',
+                    tags: ['角色扮演', '照顾关系', '心理退行']
+                });
+            }
+
+            // 14. 医疗游戏 Medical Play
+            if (hasStar(ming, '天机') || hasStar(fuDe, '天机') || hasStar(ziNv, '天机') || hasStar(jiE, '天机') || hasStar(ming, '天相')) {
+                detailedFetishes.push({
+                    name: '医疗游戏 Medical Play',
+                    intensity: '中',
+                    desc: '扮演医生/护士和病人，进行"检查"、"治疗"。可能涉及医疗器械、制服、专业术语。这种游戏结合了权力差异、羞耻感和对身体的探索。',
+                    tags: ['角色扮演', '权力差异', '身体探索']
+                });
+            }
+
+            // 15. 强制高潮 Forced Orgasm
+            if (hasStar(jiE, '贪狼') || hasStar(jiE, '廉贞') || masochScore >= 1 || bondageScore >= 1 || hasStar(ziNv, '贪狼') || hasStar(ming, '贪狼')) {
+                detailedFetishes.push({
+                    name: '强制高潮 Forced Orgasm',
+                    intensity: '中-高',
+                    desc: '被束缚后，使用震动棒等工具持续刺激，直到多次高潮甚至过度刺激。这种"被迫"的快感和失控感是强烈的心理体验。高潮后的敏感期继续刺激会带来痛苦和快感的混合。',
+                    tags: ['强制快感', '失控体验', '耐力测试']
+                });
+            }
+
+            // 16. 高潮控制 Orgasm Control/Denial
+            if (domScore >= 1 || subScore >= 1 || bondageScore >= 1) {
+                detailedFetishes.push({
+                    name: '高潮控制 Orgasm Control',
+                    intensity: '中',
+                    desc: '由主导方决定何时可以高潮，或长期禁止高潮（Chastity）。这是一种深层的权力交换，身体的最终快感被他人掌控。长期的高潮拒绝会让欲望累积到极致，最终的释放会异常强烈。',
+                    tags: ['权力交换', '欲望累积', '心理控制']
+                });
+            }
+
+            // 17. 贞操带 Chastity Device
+            if (subScore >= 2 || bondageScore >= 2) {
+                detailedFetishes.push({
+                    name: '贞操带 Chastity',
+                    intensity: '中-高',
+                    desc: '佩戴贞操带/贞操锁，物理上阻止性行为和自慰。钥匙由主导方保管，可能是几小时、几天甚至几周。这种持续的束缚感和对对方的依赖是强烈的心理体验。',
+                    tags: ['长期束缚', '权力象征', '持续提醒']
+                });
+            }
+
+            // 18. 公开羞辱 Public Humiliation
+            if (hasStar(ming, '破军') || exhibScore >= 1 || hasStar(ziNv, '破军') || hasStar(fuDe, '破军') || hasStar(ming, '贪狼') || hasStar(ziNv, '贪狼')) {
+                detailedFetishes.push({
+                    name: '公开羞辱 Public Humiliation',
+                    intensity: '高',
+                    desc: '在公共场所进行羞辱行为（穿着暴露、佩戴项圈、执行命令等），或者有被看到的风险。这种禁忌感和羞耻感是强烈的兴奋点。务必注意法律和他人感受，不要让无辜路人卷入。',
+                    tags: ['公共场所', '羞耻刺激', '法律风险']
+                });
+            }
+
+            // 19. 群体游戏 Group Play
+            if (hasStar(fuDe, '贪狼') || hasStar(ming, '贪狼') || hasStar(ziNv, '贪狼') || hasStar(jiE, '贪狼') || hasStar(fuDe, '廉贞')) {
+                detailedFetishes.push({
+                    name: '群体游戏 Group Play',
+                    intensity: '中-高',
+                    desc: '三人或多人参与的 BDSM 场景。可能是多个 Dom 对一个 Sub，或一个 Dom 对多个 Sub，或更复杂的组合。这需要极高的沟通能力和边界管理，但能带来独特的体验。',
+                    tags: ['多人参与', '复杂动态', '沟通要求']
+                });
+            }
+
+            // 20. 原始游戏 Primal Play
+            if (hasStar(ming, '七杀') || hasStar(ming, '破军') || hasStar(ziNv, '七杀') || hasStar(ziNv, '破军') || hasStar(fuDe, '七杀') || hasStar(fuDe, '破军') || hasStar(jiE, '七杀')) {
+                detailedFetishes.push({
+                    name: '原始游戏 Primal Play',
+                    intensity: '中-高',
+                    desc: '放下文明的束缚，回归动物本能。可能涉及追逐、扑咬、抓挠、嘶吼。这是一种原始的、野性的互动方式，不需要复杂的规则和道具，只需要释放内心的野兽。',
+                    tags: ['本能释放', '野性互动', '身体接触']
+                });
+            }
+
+            // 21. 恋物 Fetishism
+            if (hasStar(fuDe, '太阴') || hasStar(ming, '太阴') || hasStar(ziNv, '太阴') || hasStar(jiE, '太阴') || hasStar(fuDe, '天机') || hasStar(ming, '天机')) {
+                detailedFetishes.push({
+                    name: '恋物 Fetishism',
+                    intensity: '轻-中',
+                    desc: '对特定物品有强烈的性吸引力。可能是丝袜、高跟鞋、皮革、乳胶、制服等。这些物品本身就能激发你的欲望，甚至比身体本身更有吸引力。',
+                    tags: ['物品迷恋', '视觉刺激', '材质偏好']
+                });
+            }
+
+            // 22. 乳胶/皮革 Latex/Leather
+            if (hasStar(jiE, '廉贞') || hasStar(fuDe, '贪狼') || hasStar(ming, '廉贞') || hasStar(ziNv, '廉贞') || hasStar(ming, '贪狼') || hasStar(ziNv, '贪狼')) {
+                detailedFetishes.push({
+                    name: '乳胶/皮革 Latex/Leather',
+                    intensity: '轻-中',
+                    desc: '对乳胶衣、皮革装有特别的迷恋。紧身的乳胶包裹全身的感觉，皮革的气味和质感，都能带来强烈的感官刺激。这也是一种视觉上的权力象征。',
+                    tags: ['材质迷恋', '紧身束缚', '视觉冲击']
+                });
+            }
+
+            // 23. 足部崇拜 Foot Worship
+            if (hasStar(ming, '紫微') || hasStar(ziNv, '天相') || hasStar(fuDe, '紫微') || hasStar(ming, '天相') || hasStar(fuDe, '天相') || subScore >= 2) {
+                detailedFetishes.push({
+                    name: '足部崇拜 Foot Worship',
+                    intensity: '轻',
+                    desc: '对脚有特别的迷恋，享受亲吻、舔舐、按摩对方的脚。这是一种臣服的象征——身体最低的部位成为崇拜的对象。可能对高跟鞋、丝袜、脚趾、足弓有特别的偏好。',
+                    tags: ['身体崇拜', '臣服象征', '感官偏好']
+                });
+            }
+
+            // 24. 践踏 Trampling
+            if (masochScore >= 2 || (hasStar(jiE, '廉贞') && subScore >= 2) || (hasStar(ziNv, '七杀') && subScore >= 2)) {
+                detailedFetishes.push({
+                    name: '践踏 Trampling',
+                    intensity: '中-高',
+                    desc: '被对方用脚踩踏身体，可能是赤脚或穿着高跟鞋。这是一种极度的羞辱和臣服，身体被当作地板一样对待。疼痛和羞辱感混合在一起，产生强烈的心理冲击。',
+                    tags: ['羞辱游戏', '疼痛刺激', '极度臣服']
+                });
+            }
+
+            // 25. CNC (Consensual Non-Consent)
+            if (kScore >= 8 && (hasStar(ming, '破军') || hasStar(ming, '七杀') || hasStar(ziNv, '破军') || hasStar(ziNv, '七杀') || hasStar(fuDe, '破军') || hasStar(fuDe, '七杀'))) {
+                detailedFetishes.push({
+                    name: 'CNC 协商非同意',
+                    intensity: '极高',
+                    desc: '事先协商好的"强迫"场景，模拟非自愿的情境。这是最具争议的游戏之一，需要极高的信任、详细的事前协商和明确的安全词。这种游戏让人体验失去控制的恐惧和刺激，但一切都在安全框架内。',
+                    tags: ['极限场景', '高度信任', '详细协商']
+                });
+            }
+
+            // 特殊癖好推测（保留原有的简化版本）
             const fetishItems = [];
             if (hasStar(ming, '七杀') || hasStar(ziNv, '七杀')) fetishItems.push({ label: '权力游戏 Power Exchange', desc: '对权力差异有强烈兴趣，主从关系本身就是最大的刺激。你享受那种"我说了算"或"你说了算"的明确感，模糊的权力关系反而让你不舒服。可能对主仆、主奴、老师学生等带有权力落差的场景有特别的吸引力。这不只是肉体层面的，更是心理层面的——谁掌控谁，谁服从谁，这个动态本身就让你兴奋。' });
             if (hasStar(ming, '破军') || hasStar(ziNv, '破军')) fetishItems.push({ label: '禁忌探索 Taboo', desc: '越是禁忌越有吸引力，喜欢突破边界和常规。你对"不应该"有天然的好奇心，社会规范和道德边界对你来说更像是挑战而不是约束。可能对公共场所、角色扮演中的禁忌场景、或者打破某种"规则"的行为有特别的兴趣。这种兴奋感来自于越界本身——不是因为不道德，而是因为那种"我们在做别人不敢做的事"的感觉。' });
@@ -992,6 +1360,61 @@
                     </div>
                 </div>
             </div>`;
+
+            // K级分类卡片
+            html += `<div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:rgba(255,0,102,0.15);">📊</div>
+                    <div class="card-title">K级分类 · BDSM强度评估</div>
+                </div>
+                <div class="card-body">
+                    <div style="text-align:center;margin-bottom:20px;">
+                        <div style="display:inline-block;padding:12px 32px;background:${kLevelColor};border-radius:16px;margin-bottom:12px;">
+                            <span style="font-size:32px;font-weight:900;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.3);">${kLevel}</span>
+                        </div>
+                        <div style="font-size:13px;opacity:0.6;margin-top:8px;">K1(无倾向) → K9(极重度)</div>
+                    </div>
+                    <div style="line-height:1.8;font-size:14px;margin-bottom:16px;">${kLevelDesc}</div>
+                    <div style="background:rgba(255,255,255,0.05);padding:12px;border-radius:8px;border-left:3px solid ${kLevelColor};">
+                        <div style="font-size:12px;opacity:0.7;line-height:1.6;">
+                            <strong>K级说明：</strong>K级分类系统参考金赛量表，将BDSM倾向从K1到K9分为9个等级。这不是道德评判，只是描述你的偏好强度。每个人都有权利探索自己的性偏好，关键是安全、知情同意和相互尊重。
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            // 详细癖好分类卡片
+            if (detailedFetishes.length > 0) {
+                html += `<div class="card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background:rgba(255,100,200,0.15);">🎭</div>
+                        <div class="card-title">小众癖好推测 · 共${detailedFetishes.length}项</div>
+                    </div>
+                    <div class="card-body">
+                        <div style="font-size:13px;opacity:0.6;margin-bottom:16px;line-height:1.6;">
+                            根据你的命盘配置，以下是可能引起你兴趣的小众癖好。这些推测基于星曜组合，仅供参考。实际偏好因人而异，请在充分了解安全知识和获得伴侣同意的前提下探索。
+                        </div>`;
+
+                detailedFetishes.forEach((fetish, idx) => {
+                    const intensityColor =
+                        fetish.intensity.includes('极高') ? '#ff0066' :
+                        fetish.intensity.includes('高') ? '#ff3385' :
+                        fetish.intensity.includes('中') ? '#ff66a3' : '#ff99c2';
+
+                    html += `<div style="margin-bottom:${idx < detailedFetishes.length - 1 ? '20px' : '0'};padding-bottom:${idx < detailedFetishes.length - 1 ? '20px' : '0'};border-bottom:${idx < detailedFetishes.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none'};">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                            <div style="font-weight:700;font-size:15px;color:#ffd4e5;">${fetish.name}</div>
+                            <span style="padding:3px 10px;background:${intensityColor};color:white;border-radius:8px;font-size:11px;font-weight:600;">${fetish.intensity}</span>
+                        </div>
+                        <div style="font-size:13px;line-height:1.7;opacity:0.85;margin-bottom:8px;">${fetish.desc}</div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                            ${fetish.tags.map(tag => `<span style="padding:2px 8px;background:rgba(255,255,255,0.08);border-radius:6px;font-size:11px;color:rgba(255,255,255,0.6);">${tag}</span>`).join('')}
+                        </div>
+                    </div>`;
+                });
+
+                html += `</div></div>`;
+            }
 
             // 风格偏好卡片
             html += `<div class="card">
