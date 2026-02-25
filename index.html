@@ -410,19 +410,14 @@
                 padding: 10px;
             }
             .container {
-                padding: 25px 18px;
+                padding: 30px 20px;
                 border-radius: 20px;
             }
             h1 {
-                font-size: 28px;
-                letter-spacing: 1px;
+                font-size: 32px;
             }
             .subtitle {
-                font-size: 14px;
-                margin-bottom: 25px;
-            }
-            .form-group {
-                margin-bottom: 18px;
+                font-size: 15px;
             }
             .result-card-wrap {
                 padding: 25px 18px;
@@ -437,53 +432,69 @@
                 font-size: 14px;
                 margin-bottom: 15px;
             }
-            .card {
+            .result-card-wrap .card {
                 padding: 16px;
                 margin-bottom: 12px;
                 border-radius: 12px;
             }
-            .card-header {
+            .result-card-wrap .card-header {
                 margin-bottom: 12px;
             }
-            .card-icon {
+            .result-card-wrap .card-icon {
                 width: 32px;
                 height: 32px;
                 font-size: 16px;
             }
-            .card-title {
+            .result-card-wrap .card-title {
                 font-size: 16px;
             }
-            .card-body {
+            .result-card-wrap .card-body {
                 font-size: 15px;
                 line-height: 1.8;
             }
-            .username-display {
+            .result-card-wrap .username-display {
                 font-size: 22px;
                 margin-bottom: 8px;
             }
-            .bdsm-row {
+            .result-card-wrap .bdsm-row {
                 gap: 6px;
                 margin-top: 8px;
             }
-            .bdsm-tag {
+            .result-card-wrap .bdsm-tag {
                 padding: 8px 14px;
                 font-size: 14px;
                 border-radius: 16px;
             }
-            label {
-                font-size: 15px;
+            .result-card-wrap .meter-row {
+                gap: 10px;
                 margin-bottom: 8px;
             }
-            input, select {
-                padding: 14px;
-                font-size: 16px;
-                border-radius: 10px;
+            .result-card-wrap .meter-label {
+                font-size: 13px;
+                width: 55px;
             }
-            button {
-                padding: 16px;
-                font-size: 17px;
-                border-radius: 12px;
-                letter-spacing: 0.5px;
+            .result-card-wrap .meter-bar {
+                height: 8px;
+            }
+            .result-card-wrap .meter-value {
+                font-size: 13px;
+                width: 45px;
+            }
+            .result-card-wrap .note-box {
+                font-size: 14px;
+                padding: 12px 14px;
+                margin-top: 12px;
+            }
+            .result-card-wrap .tag-row {
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+            .result-card-wrap .tag {
+                padding: 6px 14px;
+                font-size: 14px;
+            }
+            .result-card-wrap .divider {
+                margin: 16px 0;
             }
             .share-bar {
                 gap: 8px;
@@ -492,37 +503,6 @@
             .share-bar button {
                 padding: 14px;
                 font-size: 15px;
-            }
-            .meter-row {
-                gap: 10px;
-                margin-bottom: 8px;
-            }
-            .meter-label {
-                font-size: 13px;
-                width: 55px;
-            }
-            .meter-bar {
-                height: 8px;
-            }
-            .meter-value {
-                font-size: 13px;
-                width: 45px;
-            }
-            .note-box {
-                font-size: 14px;
-                padding: 12px 14px;
-                margin-top: 12px;
-            }
-            .tag-row {
-                gap: 8px;
-                margin-bottom: 20px;
-            }
-            .tag {
-                padding: 6px 14px;
-                font-size: 14px;
-            }
-            .divider {
-                margin: 16px 0;
             }
         }
     </style>
@@ -1130,31 +1110,31 @@
 
             let kLevel, kLevelDesc, kLevelColor;
             if (kScore >= 28) {
-                kLevel = 'K9'; kLevelColor = '#ff0066';
+                kLevel = 'K9'; kLevelColor = '#DAA520';
                 kLevelDesc = '极重度 BDSM 倾向。你的性偏好深度涉及权力交换、强烈的身体刺激和复杂的心理动态。你可能对 TPE（全权力交换）、24/7 主从关系、高强度 SM、极限束缚等有强烈兴趣。这个级别需要极高的信任、丰富的经验和严格的安全措施。建议深入学习 SSC（安全、理智、知情同意）和 RACK（风险意识的知情同意）原则。';
             } else if (kScore >= 24) {
-                kLevel = 'K8'; kLevelColor = '#ff1a75';
+                kLevel = 'K8'; kLevelColor = '#D4AF37';
                 kLevelDesc = '重度 BDSM 倾向。你对 BDSM 的兴趣已经超越了偶尔尝试，可能希望将其融入日常生活。对高强度的束缚、SM、权力交换有明确需求。可能对 CNC（协商一致的非同意）、Primal Play（原始游戏）、严格的纪律与惩罚有兴趣。需要寻找经验丰富、价值观契合的伴侣。';
             } else if (kScore >= 20) {
-                kLevel = 'K7'; kLevelColor = '#ff3385';
+                kLevel = 'K7'; kLevelColor = '#DDB76E';
                 kLevelDesc = '中重度 BDSM 倾向。BDSM 是你性生活的重要组成部分，不只是调剂。你可能对绳缚艺术（Shibari）、鞭打、电击、针刺、羞辱游戏等有明确偏好。开始探索更深层的心理支配与臣服关系。建议加入本地 BDSM 社群，参加工作坊学习技术和安全知识。';
             } else if (kScore >= 16) {
-                kLevel = 'K6'; kLevelColor = '#ff4d94';
+                kLevel = 'K6'; kLevelColor = '#E6C285';
                 kLevelDesc = '中度 BDSM 倾向。你对 BDSM 有稳定的兴趣，愿意定期实践。可能对中等强度的束缚、鞭打、滴蜡、角色扮演、宠物游戏（Pet Play）有兴趣。开始建立自己的偏好体系，知道什么能激发你，什么是硬限制（Hard Limit）。';
             } else if (kScore >= 12) {
-                kLevel = 'K5'; kLevelColor = '#ff66a3';
+                kLevel = 'K5'; kLevelColor = '#EFCD9C';
                 kLevelDesc = '中轻度 BDSM 倾向。你对 BDSM 有明确的好奇和兴趣，愿意主动探索。可能对轻度束缚、蒙眼、轻度疼痛刺激、主从角色扮演感兴趣。这是一个探索期，建议多沟通、多尝试，找到自己真正喜欢的方向。';
             } else if (kScore >= 8) {
-                kLevel = 'K4'; kLevelColor = '#ff80b3';
+                kLevel = 'K4'; kLevelColor = '#F8D8B3';
                 kLevelDesc = '轻度 BDSM 倾向。你对 BDSM 元素有一定兴趣，但不是必需品。可能偶尔喜欢尝试手铐、丝巾束缚、轻微的权力游戏。这些元素能增加新鲜感，但传统方式也能让你满足。';
             } else if (kScore >= 7) {
-                kLevel = 'K3'; kLevelColor = '#ff99c2';
+                kLevel = 'K3'; kLevelColor = '#FFE3CA';
                 kLevelDesc = '微度 BDSM 倾向。你对 BDSM 有一点点好奇，但不确定是否真的喜欢。可能在特定情境下愿意尝试非常轻度的元素，比如被蒙眼、轻微的角色扮演。需要足够的安全感和信任才会尝试。';
             } else if (kScore >= 4) {
-                kLevel = 'K2'; kLevelColor = '#ffb3d1';
+                kLevel = 'K2'; kLevelColor = '#FFEEE1';
                 kLevelDesc = '极轻度倾向。你对 BDSM 基本没有兴趣，偏好传统的亲密方式。可能偶尔接受非常温和的变化（如轻微的主导/配合），但任何明显的权力差异或疼痛刺激都会让你不适。';
             } else {
-                kLevel = 'K1'; kLevelColor = '#ffcce0';
+                kLevel = 'K1'; kLevelColor = '#FFF8F0';
                 kLevelDesc = '无 BDSM 倾向。你完全不需要 BDSM 元素，偏好平等、温和、传统的亲密关系。任何形式的束缚、疼痛或权力游戏都会让你感到不舒服。你更看重情感连接和舒适的体验。';
             }
 
@@ -1532,7 +1512,7 @@
             // K级分类卡片
             html += `<div class="card">
                 <div class="card-header">
-                    <div class="card-icon" style="background:rgba(255,0,102,0.15);">📊</div>
+                    <div class="card-icon" style="background:rgba(218,165,32,0.2);">📊</div>
                     <div class="card-title">K级分类 · BDSM强度评估</div>
                 </div>
                 <div class="card-body">
@@ -1555,7 +1535,7 @@
             if (detailedFetishes.length > 0) {
                 html += `<div class="card">
                     <div class="card-header">
-                        <div class="card-icon" style="background:rgba(255,100,200,0.15);">🎭</div>
+                        <div class="card-icon" style="background:rgba(218,165,32,0.2);">🎭</div>
                         <div class="card-title">小众癖好推测 · 共${detailedFetishes.length}项</div>
                     </div>
                     <div class="card-body">
@@ -1565,18 +1545,18 @@
 
                 detailedFetishes.forEach((fetish, idx) => {
                     const intensityColor =
-                        fetish.intensity.includes('极高') ? '#ff0066' :
-                        fetish.intensity.includes('高') ? '#ff3385' :
-                        fetish.intensity.includes('中') ? '#ff66a3' : '#ff99c2';
+                        fetish.intensity.includes('极高') ? '#DAA520' :
+                        fetish.intensity.includes('高') ? '#D4AF37' :
+                        fetish.intensity.includes('中') ? '#E6C285' : '#EFCD9C';
 
                     html += `<div style="margin-bottom:${idx < detailedFetishes.length - 1 ? '20px' : '0'};padding-bottom:${idx < detailedFetishes.length - 1 ? '20px' : '0'};border-bottom:${idx < detailedFetishes.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none'};">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                            <div style="font-weight:700;font-size:15px;color:#ffd4e5;">${fetish.name}</div>
+                            <div style="font-weight:700;font-size:15px;color:#FFD700;">${fetish.name}</div>
                             <span style="padding:3px 10px;background:${intensityColor};color:white;border-radius:8px;font-size:11px;font-weight:600;">${fetish.intensity}</span>
                         </div>
                         <div style="font-size:13px;line-height:1.7;opacity:0.85;margin-bottom:8px;">${fetish.desc}</div>
                         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                            ${fetish.tags.map(tag => `<span style="padding:2px 8px;background:rgba(255,255,255,0.08);border-radius:6px;font-size:11px;color:rgba(255,255,255,0.6);">${tag}</span>`).join('')}
+                            ${fetish.tags.map(tag => `<span style="padding:2px 8px;background:rgba(218,165,32,0.2);border-radius:6px;font-size:11px;color:rgba(255,215,0,0.8);border:1px solid rgba(218,165,32,0.3);">${tag}</span>`).join('')}
                         </div>
                     </div>`;
                 });
